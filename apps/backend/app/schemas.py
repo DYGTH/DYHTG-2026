@@ -1,3 +1,5 @@
+from typing import Literal
+
 from pydantic import BaseModel
 
 
@@ -15,20 +17,11 @@ class EventsResponse(BaseModel):
 
 
 class Decision(BaseModel):
-    id: str
-    event_id: str  
+    title: str
+    type: Literal["scales", "binary"]
     description: str
 
 
-class DecisionsResponse(BaseModel):
-    decisions: list[Decision]
-
-
-class ChoiceRequest(BaseModel):
-    choices: list[str] 
-
-
-class TurnResult(BaseModel):
-    turn: int
+class ChoiceResult(BaseModel):
     alive: bool
     stats: dict[str, float]

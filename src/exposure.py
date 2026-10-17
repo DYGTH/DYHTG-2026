@@ -1,19 +1,42 @@
 # COMMUNICATE WITH MIDDLEMAN
 
-from shared_types import Decision, Consequence
+from shared_types import Choice
 
-def pass_decision_to_frontend(decision: Decision):
+DECISION_TYPES = ("scales", "binary")
 
+decision = None
+choice = None
 
-    decision = Decision.toJSON(decision)
-    # decision is in JSON format now
+def pass_decision_to_frontend(data: dict):
+    global decision
+    data = {str(key).lower(): value for key, value in data.items()}
+    if data["type"] not in DECISION_TYPES:
+        raise ValueError(f"decision type must be one of {DECISION_TYPES}, got {data['type']!r}")
+    decision = data
 
-    pass
+def get_decision_for_frontend():
+    if decision is None:
+        return None
+    return {key: decision[key] for key in ("title", "type", "description")}
 
-def get_choice_from_frontend():
+def receive_choice_from_frontend(data: dict):
+    global decision, choice
+    if decision is None:
+        raise LookupError("No pending decision")
 
-    pass
+    answer = data.get("answer")
+    if decision["type"] == "binary":
+        answer = str(answer).lower()
+        if answer not in ("yes", "no"):
+            raise ValueError("binary decision needs yes or no")
+        value = answer == "yes"
+    else:
+        try:
+            value = float(answer)
+        except (TypeError, ValueError):
+            raise ValueError("scales decision needs a number")
 
-def pass_consequence_to_frontend(consequence: Consequence):
+    choice = Choice(decision)
+    choice.value = value
+    decision = None
 
-    pass

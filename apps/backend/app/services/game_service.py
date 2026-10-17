@@ -1,29 +1,28 @@
-from app.schemas import Decision, Event, TurnResult
+import sys
+from pathlib import Path
 
-# single player: one game for the whole server
-_turn = 0
-_alive = True
+from app.schemas import ChoiceResult, Decision, Event
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[4] / "src"))
+
+import exposure  # noqa: E402
 
 
 def get_stats() -> dict[str, float]:
-    #TO_DO 
+    #TO_DO
     return {"money": 0, "population": 0}
 
 
 def get_events() -> list[Event]:
-    #TO_DO 
+    #TO_DO
     return [Event(id="stub", title="Placeholder event", description="...")]
 
 
-def get_decisions(event_id: str) -> list[Decision] | None:
-    #TO_DO 
-    if event_id not in {e.id for e in get_events()}:
-        return None
-    return [Decision(id="stub", event_id=event_id, description="Placeholder decision")]
+def get_decision() -> Decision | None:
+    decision = exposure.get_decision_for_frontend()
+    return Decision(**decision) if decision else None
 
 
-def submit_choices(choices: list[str]) -> TurnResult:
-    #TO_DO 
-    global _turn
-    _turn += 1
-    return TurnResult(turn=_turn, alive=_alive, stats=get_stats())
+def submit_choice(data: dict) -> ChoiceResult:
+    exposure.receive_choice_from_frontend(data)
+    return ChoiceResult(alive=True, stats=get_stats())
