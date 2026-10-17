@@ -12,13 +12,15 @@ def game_loop():
     while (civ.isAlive()):
 
         # decisions to choose from; limited amount
-        decisions_candidates: list = generate_decisions(civ, world)
+        decisions: list = generate_generic_decisions(civ, world)
 
-        # select decisions to make choices from
-        decisions: list = select_decisions(decisions_candidates)
+        decisions.extend(generate_special_decisions(civ, world))
 
-        # a decision made is a choice
-        choices = make_choices(decisions)
+        decision = [decision.toJSON for decision in decisions]
+
+        pass_decisions_to_frontend(decisions)
+
+        choices = [] # list of tuples (Decision, True/False/scalar) [USE "is"!]
 
         # choices made will have immediate consequences as well as ongoing effects
         process_choices(choices)
@@ -26,10 +28,28 @@ def game_loop():
         resolve_turn(civ, world, choices)
 
 
-def generate_decisions(civ: Civilization, world: World):
+def generate_generic_decisions(civ: Civilization, world: World):
+
+    for res in civ.resources:
+
+        pass
+
+    for res in world.resources:
+
+        pass
+
+def generate_special_decisions(civ: Civilization, world: World):
 
     pass
 
 def resolve_turn(civ: Civilization, world: World, choices: list):
 
     pass
+
+def process_choices(choices: list):
+
+    pass
+
+def pass_decisions_to_frontend(decisions: list):
+
+    pass # no idea rn
