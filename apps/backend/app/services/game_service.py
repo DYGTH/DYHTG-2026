@@ -9,13 +9,12 @@ import exposure  # noqa: E402
 
 
 def get_stats() -> dict[str, float]:
-    #TO_DO
-    return {"money": 0, "population": 0}
+    return exposure.get_stats_for_frontend()
 
 
-def get_events() -> list[Event]:
-    #TO_DO
-    return [Event(id="stub", title="Placeholder event", description="...")]
+# def get_events() -> list[Event]:
+#     #TO_DO
+#     return [Event(id="stub", title="Placeholder event", description="...")]
 
 
 def get_decision() -> Decision | None:
@@ -25,4 +24,4 @@ def get_decision() -> Decision | None:
 
 def submit_choice(data: dict) -> ChoiceResult:
     exposure.receive_choice_from_frontend(data)
-    return ChoiceResult(alive=True, stats=get_stats())
+    return ChoiceResult(alive=exposure.get_alive_for_frontend(), stats=get_stats())
