@@ -79,21 +79,33 @@ class Factories(Base_stat):
 
     def __init__(self, name, value):
         super().__init__(name, value)
+        self.price = 1000
+        self.woodprice = 1000
+        self.stoneprice = 1000
 
 class Farms(Base_stat):
 
     def __init__(self, name, value):
         super().__init__(name, value)
+        self.price = 0
+        self.woodprice = 2000
+        self.stoneprice = 0
 
-class Lumberjacks(Base_stat):
+class Sawmills(Base_stat):
 
     def __init__(self, name, value):
         super().__init__(name, value)
+        self.price = 0
+        self.woodprice = 2000
+        self.stoneprice = 0
 
 class Quarries(Base_stat):
 
     def __init__(self, name, value):
         super().__init__(name, value)
+        self.price = 0
+        self.woodprice = 0
+        self.stoneprice = 2000
 
 # End of AI use
 

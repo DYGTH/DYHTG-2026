@@ -12,8 +12,8 @@ class Civilisation():
         self.happiness = Happiness('happiness',100)
         self.factories = Factories('factories',1)
         self.farms = Farms('farms',1)
-        self.lumberjacks = Lumberjacks('lumberjacks',1000)
-        self.quarries = Quarries('quarries',1000)
+        self.sawmills = Sawmills('sawmills',1)
+        self.quarries = Quarries('quarries',1)
         self.available_land = Available_Land('available_land',10)
         #end of AI usage
 

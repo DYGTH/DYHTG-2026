@@ -58,8 +58,11 @@ def process_choice(civ: Civilisation, world: World, choice: Choice):
         case decisions_generator.Identifiers.BUYSELL:
 
             context[1].add(choice_made)
-            civ.money.add(-choice_made)
+            civ.money.add(-(context[1].price * choice_made))
 
         case decisions_generator.Identifier.BUILDEMOLISH:
 
-            pass
+            context[1].add(choice_made)
+            civ.money.add(-(context[1].price * choice_made))
+            civ.wood.add(-(context[1].woodprice * choice_made))
+            civ.stone.add(-(context[1].stoneprice * choice_made))
