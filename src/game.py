@@ -14,13 +14,16 @@ def game_loop():
         # decisions to choose from; limited amount
         decisions_candidates: list = generate_decisions(civ, world)
 
-        # select decisions to make
+        # select decisions to make choices from
         decisions: list = select_decisions(decisions_candidates)
 
         # a decision made is a choice
-        choices: list = make_choices(devilization()cisions)
+        choices = make_choices(decisions)
 
-        new_civ, new_world = resolve_turn(civ, world, choices)
+        # choices made will have immediate consequences as well as ongoing effects
+        process_choices(choices)
+
+        resolve_turn(civ, world, choices)
 
 
 def generate_decisions(civ: Civilization, world: World):
