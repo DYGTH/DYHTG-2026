@@ -1,3 +1,4 @@
+# Stat template
 class Base_stat:
 
     def __init__(self,name,value):
@@ -5,6 +6,7 @@ class Base_stat:
             self.value = value
             self.addDict = {} #{'1':[50,3]}
             self.mulDict = {}
+            self.price = 1
             self.count = 0
     
     def add(self,adder):
@@ -40,6 +42,7 @@ class Base_stat:
         self.mulDict[self.count] = [value,turns]
         self.count+=1
 
+# Stats for Civilisation
 class Population(Base_stat):
 
     def __init__(self, name, value):
@@ -53,6 +56,16 @@ class Money(Base_stat):
         super().__init__(name, value)
 
 class Food(Base_stat):
+
+    def __init__(self, name, value):
+        super().__init__(name, value)
+
+class Wood(Base_stat):
+
+    def __init__(self, name, value):
+        super().__init__(name, value)
+
+class Stone(Base_stat):
 
     def __init__(self, name, value):
         super().__init__(name, value)
@@ -72,8 +85,19 @@ class Farms(Base_stat):
     def __init__(self, name, value):
         super().__init__(name, value)
 
+class Lumberjacks(Base_stat):
+
+    def __init__(self, name, value):
+        super().__init__(name, value)
+
+class Quarries(Base_stat):
+
+    def __init__(self, name, value):
+        super().__init__(name, value)
+
 # End of AI use
 
+# Stats for World
 class Available_Land(Base_stat):
 
     def __init__(self, name, value):
@@ -89,7 +113,7 @@ class Wild_Land(Base_stat):
     def __init__(self, name, value):
         super().__init__(name, value)
 
-
+#Tests
 money = Money("money", 500)
 
 money.buffadd(50,1)

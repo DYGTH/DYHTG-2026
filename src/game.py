@@ -48,5 +48,9 @@ def resolve_turn(civ: Civilisation, world: World):
     #TODO
 
 def process_choice(civ: Civilisation, world: World, choice: Choice):
-
-    pass
+    decision = choice.decision
+    choice_made = choice.choice_made
+    context = decision.context
+    if context[0] == decisions_generator.Identifiers.BUYSELL:
+        context[1].add(choice_made)
+        civ.money.add(-choice_made)

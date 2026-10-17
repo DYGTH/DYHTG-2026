@@ -7,15 +7,19 @@ class Civilisation():
         #following generated with AI, using the above as template
         self.money = Money('money',1000)
         self.food = Food('food',1000)
+        self.wood = Wood('wood',1000)
+        self.stone = Stone('stone',1000)
         self.happiness = Happiness('happiness',100)
         self.factories = Factories('factories',1)
         self.farms = Farms('farms',1)
+        self.lumberjacks = Lumberjacks('lumberjacks',1000)
+        self.quarries = Quarries('quarries',1000)
         self.available_land = Available_Land('available_land',10)
         #end of AI usage
 
         self.stats = [self.population,self.money,self.food,self.happiness,self.factories,self.farms]
-        self.resources = [self.money,self.food]
-        self.buildings = [self.factories,self.farms]
+        self.resources = [self.food,self.wood,self.stone]
+        self.buildings = [self.factories,self.farms,self.lumberjacks,self.quarries]
 
     def update(self):
         for stat in self.stats:
