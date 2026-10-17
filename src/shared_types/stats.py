@@ -1,9 +1,55 @@
-class Stats:
-    def __init__(self,value):
-        self.value = value
+class Base_stat:
 
+    def __init__(self,name,value):
+            self.name = name
+            self.value = value
+            self.addDict = {} #{'1':[50,3]}
+            self.mulDict = {}
+            self.count = 0
+    
     def add(self,adder):
         self.value += adder
 
-    def mult(self,multiplier):
+    def mul(self,multiplier):
         self.value *= multiplier
+
+    def update(self):
+        temp = set()
+        for key,value in self.addDict.items():
+            self.value += value[0]
+            value[1] -= 1
+            if value[1] == 0:
+                temp.add(key)
+        for i in temp:
+            del self.addDict[i]
+
+        temp = set()
+        for key,value in self.mulDict.items():
+            self.value *= value[0]
+            value[1] -= 1
+            if value[1] == 0:
+                temp.add(key)
+        for i in temp:
+            del self.mulDict[i]
+
+    def buffadd(self,value,turns):
+        self.addDict[self.count] = [value,turns]
+        self.count+=1
+
+    def buffmul(self,value,turns):
+        self.mulDict[self.count] = [value,turns]
+        self.count+=1
+
+class Money(Base_stat):
+
+    def __init__(self, value):
+        super().__init__(value)
+
+
+money = Money(500)
+
+money.buffadd(50,1)
+money.buffmul(2,3)
+for i in range(4):
+     money.update()
+     print(money.value)
