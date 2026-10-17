@@ -1,6 +1,6 @@
 # COMMUNICATE WITH MIDDLEMAN
 
-from shared_types import Choice
+from shared_types import Choice, World, Civilisation
 
 DECISION_TYPES = ("scales", "binary")
 
@@ -40,6 +40,6 @@ def receive_choice_from_frontend(data: dict):
     choice.value = value
     decision = None
 
-def pass_civ_world_to_frontend(civ, world):
+def pass_civ_world_to_frontend(civ: Civilisation, world: World):
 
     pass
