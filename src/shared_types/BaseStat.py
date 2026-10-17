@@ -1,4 +1,4 @@
-class Base_stat:
+class BaseStat:
 
     def __init__(self,name,value):
             self.name = name

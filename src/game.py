@@ -1,6 +1,8 @@
 from shared_types.civilization import Civilization
 from shared_types.world        import World
 
+import exposure
+
 def game_loop():
 
     # player civilization
@@ -9,28 +11,42 @@ def game_loop():
     # ecosystem
     world: World        = World()
 
+    turn:  int          = 0
+
     while (civ.isAlive()):
+
+        turn += 1
 
         # decisions to choose from; limited amount
         decisions: list = generate_generic_decisions(civ, world)
 
-        decisions.extend(generate_special_decisions(civ, world))
-
-        decision = [decision.toJSON for decision in decisions]
+        decisions.extend(generate_special_decisions(civ, world, turn))
 
         pass_decisions_to_frontend(decisions)
 
-        choices = [] # list of tuples (Decision, True/False/scalar) [USE "is"!]
+        while (True):
 
-        # choices made will have immediate consequences as well as ongoing effects
-        process_choices(choices)
+            if 
+
+            # choices made will have immediate consequences as well as ongoing effects
+            process_choices(choice)
 
         resolve_turn(civ, world, choices)
 
 
 def generate_generic_decisions(civ: Civilization, world: World):
 
+    decisions = []
+
     for res in civ.resources:
+
+        # buy or sell resource
+
+        pass
+
+    for bul in civ.buildings:
+
+        # 
 
         pass
 
@@ -38,7 +54,9 @@ def generate_generic_decisions(civ: Civilization, world: World):
 
         pass
 
-def generate_special_decisions(civ: Civilization, world: World):
+    return decisions
+
+def generate_special_decisions(civ: Civilization, world: World, turn: int):
 
     pass
 
@@ -49,7 +67,3 @@ def resolve_turn(civ: Civilization, world: World, choices: list):
 def process_choices(choices: list):
 
     pass
-
-def pass_decisions_to_frontend(decisions: list):
-
-    pass # no idea rn
