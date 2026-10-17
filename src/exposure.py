@@ -40,3 +40,6 @@ def receive_choice_from_frontend(data: dict):
     choice.value = value
     decision = None
 
+def pass_civ_world_to_frontend(civ, world):
+
+    pass
