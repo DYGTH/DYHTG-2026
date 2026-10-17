@@ -6,7 +6,7 @@ export function Statistics() {
     useEffect(() => {
     fetch("http://localhost:8000/stats")
       .then(res => res.json())
-      .then(data => setStatistics(data))
+      .then(data => setStatistics(data.stats))
       .catch(err => console.error('Failed to load statistics:', err));
     }, []);
     console.log(statistics);

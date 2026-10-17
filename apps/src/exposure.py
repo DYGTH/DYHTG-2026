@@ -1,5 +1,8 @@
 # COMMUNICATE WITH MIDDLEMAN
 
+import math
+import time
+
 from shared_types import Choice, Decision, World, Civilisation
 
 DECISION_TYPES = ("scales", "binary")
@@ -8,6 +11,7 @@ decision = None
 choice = None
 stats = {}
 alive = True
+updates = 0
 
 def pass_decision_to_frontend(new_decision: Decision):
     global decision
@@ -25,6 +29,10 @@ def receive_choice_from_frontend(data: dict):
     if decision is None:
         raise LookupError("No pending decision")
 
+    title = data.get("title")
+    if title is not None and title != decision.title:
+        raise ValueError("answer is for a different decision")
+
     choise_answer = data.get("choise_answer")
     if decision.type == "binary":
         if not isinstance(choise_answer, bool):
@@ -35,19 +43,30 @@ def receive_choice_from_frontend(data: dict):
             value = float(choise_answer)
         except (TypeError, ValueError):
             raise ValueError("scales decision needs a number")
+        if isinstance(choise_answer, bool) or not math.isfinite(value):
+            raise ValueError("scales decision needs a number")
 
+    seen = updates
     choice = Choice(decision, value)
     decision = None
 
+    for _ in range(50):
+        if updates > seen:
+            break
+        time.sleep(0.1)
+
 def get_choice_from_frontend():
     global choice
+    while choice is None:
+        time.sleep(0.1)
     answer, choice = choice, None
     return answer
 
 def pass_civ_world_to_frontend(civ: Civilisation, world: World):
-    global stats, alive
+    global stats, alive, updates
     stats = {**civ.get_stat(), **world.get_stat()}
-    alive = civ.isAlive() 
+    alive = civ.isAlive()
+    updates += 1
 
 def get_stats_for_frontend():
     return stats

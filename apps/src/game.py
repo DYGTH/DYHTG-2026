@@ -13,6 +13,8 @@ def game_loop():
 
     turn:  int          = 0
 
+    exposure.pass_civ_world_to_frontend(civ, world)
+
     while (civ.isAlive()):
 
         turn += 1

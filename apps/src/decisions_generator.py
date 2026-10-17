@@ -56,4 +56,4 @@ def generate_special_decisions(civ: Civilisation, world: World, turn: int):
 
     # enum to prevent duplicates
 
-    pass
+    return []
