@@ -10,10 +10,11 @@ class Civilisation():
         self.happiness = Happiness('happiness',100)
         self.factories = Factories('factories',1)
         self.farms = Farms('farms',1)
-        self.environment = Environment('environment',100)
         #end of AI usage
 
-        self.stats = [self.population,self.money,self.food,self.happiness,self.factories,self.farms,self.environment]
+        self.stats = [self.population,self.money,self.food,self.happiness,self.factories,self.farms]
+        self.resources = [self.money,self.food]
+        self.buildings = [self.factories,self.farms]
 
     def update(self):
         for stat in self.stats:
