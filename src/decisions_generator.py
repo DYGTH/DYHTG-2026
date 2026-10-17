@@ -17,9 +17,9 @@ def generate_generic_decisions(civ: Civilisation, world: World):
 
         identifier = Identifiers.DICT_ADDITIVE
 
-        encoding = (identifier, {res : res.value})
+        context    = (identifier, {res : res.value})
 
-        decision = Decision(encoding=encoding)
+        decision   = Decision(context=context)
 
         decisions.append(decision)
 

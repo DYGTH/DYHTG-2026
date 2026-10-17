@@ -17,14 +17,15 @@ def game_loop():
 
         turn += 1
 
-        # decisions to choose from; limited amount
+        # decisions to choose from; limited amount possible
         decisions: list = decisions_generator.generate_generic_decisions(civ, world)
         decisions.extend( decisions_generator.generate_special_decisions(civ, world, turn))
 
-        exposure.pass_decision_to_frontend(decision)
+        while (decisions):
 
+            decision = decisions.pop(-1)
 
-        while (True):
+            exposure.pass_decision_to_frontend(decision)
 
             choice = exposure.get_choice_from_frontend()
 

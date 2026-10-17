@@ -5,6 +5,6 @@ class Decision:
     pass
 
     @staticmethod
-    def toJSON(decision: Decision):
+    def toJSON(decision: Decision, context: tuple):
 
         pass
