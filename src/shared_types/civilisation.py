@@ -10,6 +10,7 @@ class Civilisation():
         self.happiness = Happiness('happiness',100)
         self.factories = Factories('factories',1)
         self.farms = Farms('farms',1)
+        self.available_land = Available_Land('available_land',10)
         #end of AI usage
 
         self.stats = [self.population,self.money,self.food,self.happiness,self.factories,self.farms]

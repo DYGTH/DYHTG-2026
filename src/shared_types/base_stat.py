@@ -72,12 +72,23 @@ class Farms(Base_stat):
     def __init__(self, name, value):
         super().__init__(name, value)
 
-class Environment(Base_stat):
+# End of AI use
+
+class Available_Land(Base_stat):
 
     def __init__(self, name, value):
         super().__init__(name, value)
 
-# End of AI use
+class Pollution(Base_stat):
+
+    def __init__(self, name, value):
+        super().__init__(name, value)
+
+class Wild_Land(Base_stat):
+
+    def __init__(self, name, value):
+        super().__init__(name, value)
+
 
 money = Money("money", 500)
 
