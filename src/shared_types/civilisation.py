@@ -19,3 +19,9 @@ class Civilisation():
     def update(self):
         for stat in self.stats:
             stat.update()
+
+    def isAlive(self):
+        return self.population>0
+
+    def get_stat(self):
+        return {i.name:i.value for i in self.stats}
