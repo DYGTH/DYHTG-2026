@@ -7,18 +7,29 @@ export default function MainMenu() {
     return (
         
         <div style = {{
-            //display: "flex",
+            display: "flex",
+            flexDirection: "column",
             justifyContent:"center",
-            textAlign:"center",
+            // textAlign:"center",
             alignItems: "center",
             position: 'absolute',
-            top: "30%",
-            left: "16%"
+            minHeight: "100vh",
+            gap: "20px",
+            width: "100%"
             }}>
 
-            <h1>Start Game?</h1>
+            <h1> GAME ON!!!</h1>
+
+            <div style ={{
+                display:"flex",
+                flexDirection: "row",
+                gap: "20px",
+
+            }}>
+
             <YesButton/>
             <NoButton/>
+            </div>
         </div>
     )
 

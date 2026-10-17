@@ -1,9 +1,10 @@
 export function NoButton() {
     return (<button style =  {{
-        width: "500px",
+        width: "300px",
         height: "100px ",
         background: "#DC143C ",
         borderRadius: "10px",
+        fontSize: "30px",
         // alignments
         alignself: "center",
         marginLeftt: "20px",
@@ -15,10 +16,11 @@ export function NoButton() {
 
 export function YesButton() {
     return (<button style =  {{
-        width: "500px",
+        width: "300px",
         height: "100px",
         background: "#5EDC1F",
         borderRadius: "10px",
+        fontSize: "30px",
         // alignment
         alignself: "center",
         marginRight: "20px",
