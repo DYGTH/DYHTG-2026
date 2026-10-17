@@ -18,7 +18,7 @@ export default function MainMenu() {
             width: "100%"
             }}>
 
-            <h1> GAME ON!!!</h1>
+            <h1> Start game? </h1>
 
             <div style ={{
                 display:"flex",

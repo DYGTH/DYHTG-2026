@@ -1,8 +1,22 @@
+import {useState} from "react";
+
 export function NoButton() {
-    return (<button style =  {{
+    const [ clicked, setClicked] =useState(false);
+
+    function handleClick(){
+        setClicked(true);
+        setTimeout(() => {
+            setClicked(false)
+     }, 1000);
+
+    }
+    return (<button 
+        // onClick = { () => setClicked(true)}
+        onClick = {handleClick}
+        style =  {{
         width: "300px",
         height: "100px ",
-        background: "#DC143C ",
+        background: clicked ? "#A51020" :"#DC143C ",
         borderRadius: "10px",
         fontSize: "30px",
         // alignments
@@ -15,10 +29,21 @@ export function NoButton() {
 }
 
 export function YesButton() {
-    return (<button style =  {{
+    const [ clicked, setClicked] =useState(false);
+
+    function handleClick(){
+        setClicked(true);
+        setTimeout(() => {
+            setClicked(false)
+     }, 1000);
+
+    }
+    return (<button 
+        onClick = {handleClick}
+        style =  {{
         width: "300px",
         height: "100px",
-        background: "#5EDC1F",
+        background: clicked? "#3D9910" : "#5EDC1F",
         borderRadius: "10px",
         fontSize: "30px",
         // alignment
