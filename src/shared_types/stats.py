@@ -1,28 +1,9 @@
-from pydantic import BaseModel
+class Stats:
+    def __init__(self,value):
+        self.value = value
 
-class Population(BaseModel):
-    value:float
-    mult:float
+    def add(self,adder):
+        self.value += adder
 
-#Used AI to create following classes based on above model
-class Money(BaseModel):
-    value:float
-    add:float
-
-class Food(BaseModel):
-    value:float
-    add:float
-
-class Happiness(BaseModel):
-    value:float
-    mult:float
-
-class Factories(BaseModel):
-    value:float
-
-class Farms(BaseModel):
-    value:float
-
-class Environment(BaseModel):
-    value:float
-    mult:float
+    def mult(self,multiplier):
+        self.value *= multiplier
