@@ -23,7 +23,7 @@ def generate_generic_decisions(civ: Civilisation, world: World):
         decision   = Decision(
             title       = f"Buy/sell {res.name}?",
             description = f"Decide if you'd like to buy or sell {res.name}.",
-            type        = "scalar",
+            type        = "scales",
             context     = context
             )
 
@@ -38,9 +38,9 @@ def generate_generic_decisions(civ: Civilisation, world: World):
         context    = (identifier, bul)
 
         decision   = Decision(
-            title       = f"Build/demolish {res.name}?",
-            description = f"Decide if you'd like to build or demolish {res.name}.",
-            type        = "scalar",
+            title       = f"Build/demolish {bul.name}?",
+            description = f"Decide if you'd like to build or demolish {bul.name}.",
+            type        = "scales",
             context     = context
             )
 

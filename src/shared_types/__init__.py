@@ -1,6 +1,6 @@
 from .world        import World
 
-from .base_stat    import BaseStat
+from .base_stat    import Base_stat
 
 from .choice       import Choice
 

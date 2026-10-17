@@ -12,9 +12,8 @@ def get_stats() -> dict[str, float]:
     return exposure.get_stats_for_frontend()
 
 
-# def get_events() -> list[Event]:
-#     #TO_DO
-#     return [Event(id="stub", title="Placeholder event", description="...")]
+def get_events() -> list[Event]:
+    return [Event(id="stub", title="Placeholder event", description="...")]
 
 
 def get_decision() -> Decision | None:

@@ -19,14 +19,14 @@ class Civilisation():
 
         self.stats = [self.population,self.money,self.food,self.happiness,self.factories,self.farms]
         self.resources = [self.food,self.wood,self.stone]
-        self.buildings = [self.factories,self.farms,self.lumberjacks,self.quarries]
+        self.buildings = [self.factories,self.farms,self.sawmills,self.quarries]
 
     def update(self):
         for stat in self.stats:
             stat.update()
 
     def isAlive(self):
-        return self.population>0
+        return self.population.value>0
 
     def get_stat(self):
         return {i.name:i.value for i in self.stats}

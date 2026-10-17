@@ -6,6 +6,7 @@ class World():
         self.pollution = Pollution('pollution',0)
         self.wild_land = Wild_Land('wild_land',100)
         self.stats = [self.pollution,self.wild_land]
+        self.resources = []
 
     def update(self):
         for stat in self.stats:

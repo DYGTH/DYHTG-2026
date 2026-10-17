@@ -1,6 +1,6 @@
 # COMMUNICATE WITH MIDDLEMAN
 
-from shared_types import Choice, World, Civilisation
+from shared_types import Choice, Decision, World, Civilisation
 
 DECISION_TYPES = ("scales", "binary")
 
@@ -9,17 +9,16 @@ choice = None
 stats = {}
 alive = True
 
-def pass_decision_to_frontend(data: dict):
+def pass_decision_to_frontend(new_decision: Decision):
     global decision
-    data = {str(key).lower(): value for key, value in data.items()}
-    if data["type"] not in DECISION_TYPES:
-        raise ValueError(f"decision type must be one of {DECISION_TYPES}, got {data['type']!r}")
-    decision = data
+    if new_decision.type not in DECISION_TYPES:
+        raise ValueError(f"decision type must be one of {DECISION_TYPES}, got {new_decision.type!r}")
+    decision = new_decision
 
 def get_decision_for_frontend():
     if decision is None:
         return None
-    return {key: decision[key] for key in ("title", "type", "description")}
+    return {"title": decision.title, "type": decision.type, "description": decision.description}
 
 def receive_choice_from_frontend(data: dict):
     global decision, choice
@@ -27,7 +26,7 @@ def receive_choice_from_frontend(data: dict):
         raise LookupError("No pending decision")
 
     choise_answer = data.get("choise_answer")
-    if decision["type"] == "binary":
+    if decision.type == "binary":
         if not isinstance(choise_answer, bool):
             raise ValueError("binary decision needs true or false")
         value = choise_answer
@@ -37,9 +36,13 @@ def receive_choice_from_frontend(data: dict):
         except (TypeError, ValueError):
             raise ValueError("scales decision needs a number")
 
-    choice = Choice(decision)
-    choice.value = value
+    choice = Choice(decision, value)
     decision = None
+
+def get_choice_from_frontend():
+    global choice
+    answer, choice = choice, None
+    return answer
 
 def pass_civ_world_to_frontend(civ: Civilisation, world: World):
     global stats, alive
