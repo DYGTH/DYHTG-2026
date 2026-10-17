@@ -1,4 +1,4 @@
-export default function SpeechBubble({ speech }){
+export function SpeechBubble({ speech }){
     return (
         <div><p>{speech}</p></div>
     )
