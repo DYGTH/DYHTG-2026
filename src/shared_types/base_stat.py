@@ -1,4 +1,4 @@
-class BaseStat:
+class Base_stat:
 
     def __init__(self,name,value):
             self.name = name
@@ -40,13 +40,46 @@ class BaseStat:
         self.mulDict[self.count] = [value,turns]
         self.count+=1
 
+class Population(Base_stat):
+
+    def __init__(self, name, value):
+        super().__init__(name, value)
+
+# Following class declarations in made by AI in format of above class
+
 class Money(Base_stat):
 
-    def __init__(self, value):
-        super().__init__(value)
+    def __init__(self, name, value):
+        super().__init__(name, value)
 
+class Food(Base_stat):
 
-money = Money(500)
+    def __init__(self, name, value):
+        super().__init__(name, value)
+
+class Happiness(Base_stat):
+
+    def __init__(self, name, value):
+        super().__init__(name, value)
+
+class Factories(Base_stat):
+
+    def __init__(self, name, value):
+        super().__init__(name, value)
+
+class Farms(Base_stat):
+
+    def __init__(self, name, value):
+        super().__init__(name, value)
+
+class Environment(Base_stat):
+
+    def __init__(self, name, value):
+        super().__init__(name, value)
+
+# End of AI use
+
+money = Money("money", 500)
 
 money.buffadd(50,1)
 money.buffmul(2,3)
