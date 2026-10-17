@@ -1,12 +1,11 @@
-from shared_types.civilization import Civilization
-from shared_types.world        import World
+from shared_types import Civilisation, World, Choice
 
 import exposure
 
 def game_loop():
 
     # player civilization
-    civ:   Civilization = Civilization()
+    civ:   Civilisation = Civilisation()
 
     # ecosystem
     world: World        = World()
@@ -19,22 +18,27 @@ def game_loop():
 
         # decisions to choose from; limited amount
         decisions: list = generate_generic_decisions(civ, world)
+        decisions.extend( generate_special_decisions(civ, world, turn))
 
-        decisions.extend(generate_special_decisions(civ, world, turn))
+        exposure.pass_decisions_to_frontend(decisions)
 
-        pass_decisions_to_frontend(decisions)
 
         while (True):
 
-            if 
+            choice = exposure.get_choice_from_frontend()
+
+            if choice.type == 0: # choices completed
+                break
 
             # choices made will have immediate consequences as well as ongoing effects
-            process_choices(choice)
-
-        resolve_turn(civ, world, choices)
+            process_choice(civ, world, choice)
 
 
-def generate_generic_decisions(civ: Civilization, world: World):
+        # modifiers and bonuses and stuff like that; maybe generate random events?
+        resolve_turn(civ, world)
+
+
+def generate_generic_decisions(civ: Civilisation, world: World):
 
     decisions = []
 
@@ -46,7 +50,7 @@ def generate_generic_decisions(civ: Civilization, world: World):
 
     for bul in civ.buildings:
 
-        # 
+        # build or demolish building
 
         pass
 
@@ -56,14 +60,19 @@ def generate_generic_decisions(civ: Civilization, world: World):
 
     return decisions
 
-def generate_special_decisions(civ: Civilization, world: World, turn: int):
+def generate_special_decisions(civ: Civilisation, world: World, turn: int):
+
+    # enum to prevent duplicates
 
     pass
 
-def resolve_turn(civ: Civilization, world: World, choices: list):
+def resolve_turn(civ: Civilisation, world: World):
 
-    pass
+    civ  .update()
+    world.update()
 
-def process_choices(choices: list):
+    #TODO
+
+def process_choice(civ: Civilisation, world: World, choice: Choice):
 
     pass
