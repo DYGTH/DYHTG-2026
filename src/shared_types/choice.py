@@ -2,6 +2,6 @@ from decision import Decision
 
 class Choice():
 
-    def __init__(self, decision: Decision, type:int=1):
+    def __init__(self, decision: Decision, choice_made):
 
-        self.type = type # 0 = out of choices, 1 = choice
+        pass
