@@ -5,7 +5,8 @@ from enum import Enum, auto
 # Thanks to ChatGPT for enum syntax
 class Identifiers(Enum):
 
-    ARRAY_ADDITIVE = auto()
+    BUYSELL      = auto()
+    BUILDEMOLISH = auto()
 
 def generate_generic_decisions(civ: Civilisation, world: World):
 
@@ -15,11 +16,16 @@ def generate_generic_decisions(civ: Civilisation, world: World):
 
         # buy or sell resource
 
-        identifier = Identifiers.DICT_ADDITIVE
+        identifier = Identifiers.BUYSELL
 
-        context    = (identifier, {res : res.value})
+        context    = (identifier, res)
 
-        decision   = Decision(context=context)
+        decision   = Decision(
+            title       = f"Buy/sell {res.name}?",
+            description = f"Decide if you'd like to buy or sell {res.name}.",
+            type        = "scalar",
+            context     = context
+            )
 
         decisions.append(decision)
 
@@ -27,7 +33,18 @@ def generate_generic_decisions(civ: Civilisation, world: World):
 
         # build or demolish building
 
-        pass
+        identifier = Identifiers.BUILDEMOLISH
+
+        context    = (identifier, bul)
+
+        decision   = Decision(
+            title       = f"Build/demolish {res.name}?",
+            description = f"Decide if you'd like to build or demolish {res.name}.",
+            type        = "scalar",
+            context     = context
+            )
+
+        decisions.append(decision)
 
     for res in world.resources:
 

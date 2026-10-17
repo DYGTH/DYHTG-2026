@@ -1,10 +1,20 @@
+from enum import Enum
+
 class Decision:
 
-    # title, description, type (binary/scalar)
+    def __init__(self, title: str, description: str, type: bool, context: tuple):
 
-    pass
+        self.title       = title
+        self.description = description
+        self.type        = type # use DecisionType enum
+        self.context     = context
 
     @staticmethod
     def toJSON(decision: Decision, context: tuple):
 
         pass
+
+class DecisionType(Enum):
+
+    BINARY = 0
+    SCALAR = 1
