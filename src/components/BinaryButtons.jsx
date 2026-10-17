@@ -1,11 +1,33 @@
 export function NoButton() {
-    return (<button>No</button>)
+    return (<button style =  {{
+        width: "500px",
+        height: "100px ",
+        background: "#DC143C ",
+        borderRadius: "10px",
+        // alignments
+        alignself: "center",
+        marginLeftt: "20px",
+        //placeItems: " center",
+        // justifyContent: "center",
+        // alighItems: "center",  
+        }}> No </button>)
 }
 
 export function YesButton() {
-    return (<button>Yes</button>)
+    return (<button style =  {{
+        width: "500px",
+        height: "100px",
+        background: "#5EDC1F",
+        borderRadius: "10px",
+        // alignment
+        alignself: "center",
+        marginRight: "20px",
+
+     }}> Yes </button>)
+
 }
 
+// 
 export function UpArrowButton() {
     return (<button></button>)
 }
