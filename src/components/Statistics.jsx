@@ -4,11 +4,12 @@ export function Statistics() {
     
     const [statistics, setStatistics] = useState(null);
     useEffect(() => {
-    fetch("../api/fake_stats.json")
+    fetch("http://localhost:8000/stats")
       .then(res => res.json())
       .then(data => setStatistics(data))
       .catch(err => console.error('Failed to load statistics:', err));
     }, []);
+    console.log(statistics);
     return (
     <div>
           {statistics ? (
