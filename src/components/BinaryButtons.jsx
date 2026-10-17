@@ -15,17 +15,17 @@ export function DownArrowButton() {
 }
 
 export function LeftArrowButton() {
-    return (<button class="width: 0;
-	height: 0;
-	border-top: 25px solid transparent;
-	border-right: 50px solid #555;
-	border-bottom: 25px solid transparent;"></button>)
+    return (<button className="width: 0
+	height: 0
+	border-top: 25px solid transparent
+	border-right: 50px solid #555
+	border-bottom: 25px solid transparent"></button>)
 }
 
 export function RightArrowButton() {
-    return (<button class="width: 0;
-	height: 0;
-	border-top: 25px solid transparent;
-	border-left: 50px solid #555;
-	border-bottom: 25px solid transparent;"></button>)
+    return (<button className="width: 0
+	height: 0
+	border-top: 25px solid transparent
+	border-left: 50px solid #555
+	border-bottom: 25px solid transparent"></button>)
 }
