@@ -6,6 +6,8 @@ DECISION_TYPES = ("scales", "binary")
 
 decision = None
 choice = None
+stats = {}
+alive = True
 
 def pass_decision_to_frontend(data: dict):
     global decision
@@ -24,15 +26,14 @@ def receive_choice_from_frontend(data: dict):
     if decision is None:
         raise LookupError("No pending decision")
 
-    answer = data.get("answer")
+    choise_answer = data.get("choise_answer")
     if decision["type"] == "binary":
-        answer = str(answer).lower()
-        if answer not in ("yes", "no"):
-            raise ValueError("binary decision needs yes or no")
-        value = answer == "yes"
+        if not isinstance(choise_answer, bool):
+            raise ValueError("binary decision needs true or false")
+        value = choise_answer
     else:
         try:
-            value = float(answer)
+            value = float(choise_answer)
         except (TypeError, ValueError):
             raise ValueError("scales decision needs a number")
 
@@ -41,5 +42,12 @@ def receive_choice_from_frontend(data: dict):
     decision = None
 
 def pass_civ_world_to_frontend(civ: Civilisation, world: World):
+    global stats, alive
+    stats = {**civ.get_stat(), **world.get_stat()}
+    alive = civ.isAlive() 
 
-    pass
+def get_stats_for_frontend():
+    return stats
+
+def get_alive_for_frontend():
+    return alive
