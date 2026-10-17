@@ -1,5 +1,6 @@
-from shared_types import Civilisation, World, Choice
+from shared_types import Civilisation, World, Choice, Consequence, Decision
 
+import decisions_generator
 import exposure
 
 def game_loop():
@@ -16,14 +17,15 @@ def game_loop():
 
         turn += 1
 
-        # decisions to choose from; limited amount
-        decisions: list = generate_generic_decisions(civ, world)
-        decisions.extend( generate_special_decisions(civ, world, turn))
+        # decisions to choose from; limited amount possible
+        decisions: list = decisions_generator.generate_generic_decisions(civ, world)
+        decisions.extend( decisions_generator.generate_special_decisions(civ, world, turn))
 
-        exposure.pass_decisions_to_frontend(decisions)
+        while (decisions):
 
+            decision = decisions.pop(-1)
 
-        while (True):
+            exposure.pass_decision_to_frontend(decision)
 
             choice = exposure.get_choice_from_frontend()
 
@@ -31,40 +33,13 @@ def game_loop():
                 break
 
             # choices made will have immediate consequences as well as ongoing effects
-            process_choice(civ, world, choice)
+            consequence: Consequence = process_choice(civ, world, choice)
+
+            exposure.pass_consequence_to_frontend(consequence)
 
 
         # modifiers and bonuses and stuff like that; maybe generate random events?
         resolve_turn(civ, world)
-
-
-def generate_generic_decisions(civ: Civilisation, world: World):
-
-    decisions = []
-
-    for res in civ.resources:
-
-        # buy or sell resource
-
-        pass
-
-    for bul in civ.buildings:
-
-        # build or demolish building
-
-        pass
-
-    for res in world.resources:
-
-        pass
-
-    return decisions
-
-def generate_special_decisions(civ: Civilisation, world: World, turn: int):
-
-    # enum to prevent duplicates
-
-    pass
 
 def resolve_turn(civ: Civilisation, world: World):
 
