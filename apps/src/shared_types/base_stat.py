@@ -25,7 +25,7 @@ class BaseStat:
     def update(self):
         temp = set()
         for key,value in self.addDict.items():
-            self.value.add(value[0])
+            self.add(value[0])
             value[1] -= 1
             if value[1] == 0:
                 temp.add(key)
@@ -35,7 +35,7 @@ class BaseStat:
 
         temp = set()
         for key,value in self.mulDict.items():
-            self.value.mul(value[0])
+            self.mul(value[0])
             value[1] -= 1
             if value[1] <= 0:
                 temp.add(key)

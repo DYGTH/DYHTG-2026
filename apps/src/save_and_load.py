@@ -2,11 +2,12 @@
 
 import os
 import pickle
-from   game import game_loop
 
-savepath = os.path.join("..", "..", "..", "save")
+savepath = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "save")
 
 def save_game(civ, world, turn_number):
+
+    os.makedirs(savepath, exist_ok=True)
 
     with open(os.path.join(savepath, "civsave.pkl"), "wb") as f:
 
@@ -31,4 +32,4 @@ def load_game():
     with open(os.path.join(savepath, "turn_number.txt"), "r") as f:
         turn_number = int(f.read())
 
-    game_loop(civ, world, turn_number)
+    return civ, world, turn_number

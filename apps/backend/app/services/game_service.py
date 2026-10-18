@@ -13,7 +13,7 @@ import game  # noqa: E402
 
 
 def start_game():
-    threading.Thread(target=game.game_loop, daemon=True).start()
+    threading.Thread(target=game.start_game, daemon=True).start()
 
 
 def get_stats() -> dict[str, float]:
