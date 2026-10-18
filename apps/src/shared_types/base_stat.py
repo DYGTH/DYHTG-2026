@@ -62,6 +62,7 @@ class Population(BaseStat):
 
     def __init__(self, name, value, civ):
         super().__init__(name, value, civ)
+        self.available = self.value
 
         self.contribution_type = "mul"
         self.contribution_factor = (civ.food.value - self.value) / self.value
@@ -74,7 +75,7 @@ class Money(BaseStat):
         super().__init__(name, value, civ)
 
         self.contribution_type = "add"
-        self.contribution_factor = civ.factories.value * 1000 * (civ.factories.value * 1000)
+        self.contribution_factor = civ.factories.value * 1000
 
 class Food(BaseStat):
 
@@ -106,7 +107,8 @@ class Happiness(BaseStat):
         super().__init__(name, value, civ)
 
         self.contribution_type = "add"
-        self.contribution_factor = 
+        food_surplus = civ.food.value - civ.population.value
+        self.contribution_factor = 5 * (food_surplus) / abs(food_surplus)
 
 # End of AI use
 
@@ -160,6 +162,7 @@ class Quarries(Building):
 
     def __init__(self, name, value, civ):
         super().__init__(name, value, civ)
+        
         self.price = 0
         self.woodprice = 0
         self.stoneprice = 2000
@@ -172,6 +175,7 @@ class Depollutinators(Building):
 
     def __init__(self, name, value, civ):
         super().__init__(name, value, civ)
+
         self.price = 1000
         self.woodprice = 1000
         self.stoneprice = 1000
@@ -181,6 +185,8 @@ class Available_Land(BaseStat):
 
     def __init__(self, name, value, civ):
         super().__init__(name, value, civ)
+
+        self.build_pollution = -2
 
 # Stats for World
 class Pollution(BaseStat):
