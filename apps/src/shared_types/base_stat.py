@@ -13,8 +13,9 @@ class BaseStat:
             self.contribution_type   = "add"
             self.contribution_factor = 0
     
-    def add(self,adder):
-        self.value += adder
+    def add(self,adder,pollution_param=False):
+        if pollution_param: self.value += adder - adder * (pollution_param/100)
+        else:               self.value += adder
         if self.value <= 0:
             self.value = 0
 
