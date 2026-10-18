@@ -1,9 +1,10 @@
 import {useState} from "react";
 
-export function NoButton() {
+export function NoButton({onClick}) {
     const [ clicked, setClicked] =useState(false);
 
     function handleClick(){
+        if (onClick) onClick();
         setClicked(true);
         setTimeout(() => {
             setClicked(false)
@@ -64,10 +65,11 @@ export function DownArrowButton() {
     return (<button></button>)
 }
 
-export function LeftArrowButton() {
+export function LeftArrowButton({onClick}) {
     const [ clicked, setClicked] =useState(false);
 
     function handleClick(){
+        if (onClick) onClick();
         setClicked(true);
         setTimeout(() => {
             setClicked(false)
@@ -86,15 +88,16 @@ export function LeftArrowButton() {
         alignself: "center",
         marginRight: "20px",
 
-     }}> &#8593 </button>)
+     }}> &larr; </button>)
 }
 
 
 
-export function RightArrowButton() {
+export function RightArrowButton({onClick}) {
     const [ clicked, setClicked] =useState(false);
 
     function handleClick(){
+        if (onClick) onClick();
         setClicked(true);
         setTimeout(() => {
             setClicked(false)
@@ -116,5 +119,5 @@ export function RightArrowButton() {
         //placeItems: " center",
         // justifyContent: "center",
         // alighItems: "center",  
-        }}> No </button>)
+        }}> &rarr; </button>)
     }

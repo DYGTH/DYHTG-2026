@@ -3,7 +3,7 @@ from apps.src.shared_types import Civilisation, World, Choice, Decision
 import decisions_generator
 import exposure
 
-from numpy.random import choice,randint
+import random
 
 def game_loop():
 
@@ -20,6 +20,8 @@ def game_loop():
     while (civ.isAlive()):
 
         turn += 1
+
+        exposure.pass_turn_to_frontend(turn)
 
         # decisions to choose from; limited amount possible
         decisions: list         = decisions_generator.generate_generic_decisions(civ, world)
@@ -42,9 +44,8 @@ def game_loop():
             exposure.pass_civ_world_to_frontend(civ, world)
 
         # Random Special Event (RSP)
-        rse_p = [0,special_decisions[randint(0,len(special_decisions)-1)]]
-        decision = choice(rse_p, 1, p=[0.75,0.25])
-        if decision != 0:
+        if random.random() < 0.25:
+            decision = random.choice(special_decisions)
             exposure.pass_decision_to_frontend(decision)
             
             choice = exposure.get_choice_from_frontend()
@@ -61,7 +62,7 @@ def game_loop():
 def resolve_turn(civ: Civilisation, world: World):
 
     civ.update()
-    civ.pollute()
+    civ.pollute(world)
 
 def process_choice(civ: Civilisation, world: World, choice: Choice):
     

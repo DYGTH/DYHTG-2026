@@ -1,5 +1,3 @@
-from apps.src.shared_types.civilisation import Civilisation
-
 """ Stat template """
 
 class BaseStat:
@@ -70,7 +68,7 @@ class Population(BaseStat):
 
         # Multiplies Population with 1 + 1/5 of the percentage surplus of Food over Population
         self.contribution_type = "mul"
-        self.contribution_factor = (1 + 0.2 * (civ.food.value - self.value)) / self.value
+        self.contribution_factor = 1 + 0.2 * (civ.food.value - self.value) / self.value
 
 # Following class declarations at base level made by AI in format of above class
 
@@ -129,8 +127,8 @@ class Building(BaseStat):
         super().__init__(name, value, civ)
         self.build_pollution = 0
 
-    def pollute(self,civ):
-        civ.pollution.add(self.build_pollution)
+    def pollute(self,world):
+        world.pollution.add(self.build_pollution)
 
 class Factories(Building):
 

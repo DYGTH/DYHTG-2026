@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 import { Assistant } from "../components/Assistant";
-import { LeftArrowButton, YesButton } from "../components/BinaryButtons";
-import { RightArrowButton, NoButton } from "../components/BinaryButtons";
 import { SpeechBubble } from "../components/SpeechBubble";
 import { Statistics } from "../components/Statistics";
 import { DisplayButtons, DisplayDecision } from "../components/Decisions";
@@ -60,7 +58,7 @@ export default function GamePage() {
             }}>
 
             <h2>Statistics</h2>
-            <Statistics/>
+            <Statistics statistics={statistics}/>
             </div>
 
 
@@ -80,14 +78,14 @@ export default function GamePage() {
 
 
 
-            <div script= {{ 
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    gap: "20px"}}> 
-            <YesButton/>
-            <NoButton/>
-            </div>
+            {alive ? (
+                <div>
+                    <DisplayDecision decision={decision}/>
+                    <DisplayButtons decision={decision} onAnswer={answer}/>
+                </div>
+            ) : (
+                <h2>Game over</h2>
+            )}
 
         </div>
     )
