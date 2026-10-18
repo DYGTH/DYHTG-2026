@@ -6,19 +6,19 @@ import redButtonPressedImg from "../assets/red_button_pressed.png";
 import leftButtonImg from "../assets/left_arrow.png";
 import rightButtonImg from "../assets/right_arrow.png";
 
-function ImageButton({ image, pressedImage = image, label, text, round, onClick, disabled }) {
+function ImageButton({ image, pressedImage = image, label, text, round, selected, onClick, disabled }) {
     const [pressed, setPressed] = useState(false);
 
     return (
         <button
-            className={round ? "image-button image-button-round" : "image-button"}
+            className={`${round ? "image-button image-button-round" : "image-button"}${selected ? " image-button-selected" : ""}`}
             aria-label={label}
             disabled={disabled}
             onClick={onClick}
             onPointerDown={() => setPressed(true)}
             onPointerUp={() => setPressed(false)}
             onPointerLeave={() => setPressed(false)}
-            style={{ backgroundImage: `url(${pressed ? pressedImage : image})` }}
+            style={{ backgroundImage: `url(${pressed || selected ? pressedImage : image})` }}
         >
             <span className="image-button-label">{text}</span>
         </button>

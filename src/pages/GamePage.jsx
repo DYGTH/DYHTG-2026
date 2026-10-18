@@ -51,25 +51,28 @@ export default function GamePage() {
 
     const nudge = direction => setAmount(current => (current ?? 0) + direction);
 
-    const scaling = alive && !busy && !summary && decision?.type === "scales";
+    const binary = decision?.type === "binary";
+
+    const choosing = alive && !busy && !summary && decision !== null;
 
     useEffect(() => {
-        if (!scaling) return;
+        if (!choosing) return;
         const onKeyDown = event => {
             const direction = { ArrowLeft: -1, ArrowRight: 1 }[event.key];
             if (!direction) return;
             event.preventDefault();
-            nudge(direction);
+            if (binary) setAmount(direction);
+            else nudge(direction);
         };
         window.addEventListener("keydown", onKeyDown);
         return () => window.removeEventListener("keydown", onKeyDown);
-    }, [scaling]);
+    }, [choosing, binary]);
 
     useEffect(() => {
         if (amount === null) return;
-        const timer = setTimeout(() => answer(amount), CONFIRM_MS);
+        const timer = setTimeout(() => answer(binary ? amount < 0 : amount), CONFIRM_MS);
         return () => clearTimeout(timer);
-    }, [amount]);
+    }, [amount, binary]);
 
     return (
         <div className="page game">

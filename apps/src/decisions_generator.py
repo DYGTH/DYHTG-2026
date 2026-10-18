@@ -86,7 +86,7 @@ def describe(effects):
 
 def sides_text(context, binary):
     if binary:
-        return f"\nYes: {describe(context['yes'])}\nNo: {describe(context['no'])}"
+        return f"\n◀ Yes: {describe(context['yes'])}\n▶ No: {describe(context['no'])}"
     text = ""
     if "down" in context:
         text += f"\n◀ {describe(context['down'])} per notch"

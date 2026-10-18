@@ -494,6 +494,12 @@ p {
   transform: translateY(-3px) scale(1.04);
 }
 
+.image-button-selected,
+.image-button-selected:hover:not(:disabled) {
+  transform: translateY(-4px) scale(1.08);
+  filter: drop-shadow(0 0 10px var(--gold-light));
+}
+
 .image-button:focus-visible {
   outline: 3px dashed var(--gold-light);
   outline-offset: 2px;
