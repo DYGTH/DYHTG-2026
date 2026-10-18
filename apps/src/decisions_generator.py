@@ -50,7 +50,7 @@ def generate_generic_decisions(civ: Civilisation, world: World):
         decisions.append(decision)
 
     # TODO
-    # missing for loop?:
+    # missing for loop?: <- This makes no sense, there's nothing to loop
         # Turn wild land available
         
         identifier = Identifiers.TAMELAND

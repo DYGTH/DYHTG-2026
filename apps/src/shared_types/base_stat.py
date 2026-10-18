@@ -17,6 +17,8 @@ class BaseStat:
     
     def add(self,adder):
         self.value += adder
+        if self.value <= 0:
+            self.value = 0
 
     def mul(self,multiplier):
         self.value *= multiplier
@@ -25,7 +27,7 @@ class BaseStat:
     def update(self):
         temp = set()
         for key,value in self.addDict.items():
-            self.value += value[0]
+            self.value.add(value[0])
             value[1] -= 1
             if value[1] == 0:
                 temp.add(key)
@@ -35,9 +37,9 @@ class BaseStat:
 
         temp = set()
         for key,value in self.mulDict.items():
-            self.value *= value[0]
+            self.value.mul(value[0])
             value[1] -= 1
-            if value[1] == 0:
+            if value[1] <= 0:
                 temp.add(key)
 
         for i in temp:
