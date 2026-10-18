@@ -1,5 +1,7 @@
+import assistant from "../assets/assistant.png";
+
 export function Assistant() {
     return (
-        <div><img src="src/assets/assistant.png"></img></div>
+        <div><img src={assistant}></img></div>
     )
 }

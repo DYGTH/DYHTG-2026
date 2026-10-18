@@ -1,9 +1,19 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.routes import router
+from app.services import game_service
 
-app = FastAPI(title="Resources game", version="0.0.0")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    game_service.start_game()
+    yield
+
+
+app = FastAPI(title="Resources game", version="0.0.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,

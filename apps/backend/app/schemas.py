@@ -25,3 +25,6 @@ class Decision(BaseModel):
 class ChoiceResult(BaseModel):
     alive: bool
     stats: dict[str, float]
+
+class Turn(BaseModel):
+    turn: int

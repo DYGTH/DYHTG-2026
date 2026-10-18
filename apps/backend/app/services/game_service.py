@@ -1,15 +1,26 @@
 import sys
+import threading
 from pathlib import Path
 
-from app.schemas import ChoiceResult, Decision, Event
+from app.schemas import ChoiceResult, Decision, Event, Turn
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[4] / "src"))
+src = Path(__file__).resolve().parents[3] / "src"
+sys.path[:0] = [str(src), str(src / "shared_types")]
 
 import exposure  # noqa: E402
+import game  # noqa: E402
+
+
+def start_game():
+    threading.Thread(target=game.game_loop, daemon=True).start()
 
 
 def get_stats() -> dict[str, float]:
     return exposure.get_stats_for_frontend()
+
+
+def get_turn() -> Turn:
+    return Turn(turn=exposure.get_turn_for_frontend())
 
 
 def get_events() -> list[Event]:
