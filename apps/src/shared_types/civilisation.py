@@ -14,6 +14,7 @@ class Civilisation():
         self.farms = Farms('farms',1)
         self.sawmills = Sawmills('sawmills',1)
         self.quarries = Quarries('quarries',1)
+        self.depollutinators = Depollutinators('depollutinators',0)
         self.available_land = Available_Land('available_land',10)
         #end of AI usage
 
