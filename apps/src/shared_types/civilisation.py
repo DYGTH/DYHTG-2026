@@ -25,6 +25,10 @@ class Civilisation():
         for stat in self.stats:
             stat.update()
 
+    def pollute(self):
+        for building in self.buildings:
+            building.pollute(self)
+
     def isAlive(self):
         return self.population.value>0
 

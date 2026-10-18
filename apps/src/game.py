@@ -43,6 +43,7 @@ def game_loop():
 def resolve_turn(civ: Civilisation, world: World):
 
     civ  .update()
+    civ  .pollute()
     world.update()
 
     #TODO
@@ -62,7 +63,18 @@ def process_choice(civ: Civilisation, world: World, choice: Choice):
 
         case decisions_generator.Identifiers.BUILDEMOLISH:
 
-            context[1].add(choice_made)
-            civ.money.add(-(context[1].price * choice_made))
-            civ.wood.add(-(context[1].woodprice * choice_made))
-            civ.stone.add(-(context[1].stoneprice * choice_made))
+            if choice_made >= 0:
+                context[1].add(choice_made)
+                civ.money.add(-(context[1].price * choice_made))
+                civ.wood.add(-(context[1].woodprice * choice_made))
+                civ.stone.add(-(context[1].stoneprice * choice_made))
+                civ.available_land.add(-choice_made)
+            else:
+                context[1].add(-choice_made)
+                civ.available_land.add(choice_made)
+
+        case decisions_generator.Identifiers.TAMELAND:
+
+            context[1].add(-choice_made)
+            civ.available_land.add(choice_made)
+            world.pollution.add(choice_made)

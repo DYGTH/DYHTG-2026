@@ -75,46 +75,68 @@ class Happiness(Base_stat):
     def __init__(self, name, value):
         super().__init__(name, value)
 
-class Factories(Base_stat):
+# End of AI use
+
+class Building(Base_stat):
+
+    def __init__(self, name, value):
+        super().__init__(name, value)
+        self.build_pollution = 0
+
+    def pollute(self,civ):
+        civ.pollution.add(self.build_pollution)
+
+class Factories(Building):
 
     def __init__(self, name, value):
         super().__init__(name, value)
         self.price = 1000
         self.woodprice = 1000
         self.stoneprice = 1000
+        self.build_pollution = 5
 
-class Farms(Base_stat):
-
-    def __init__(self, name, value):
-        super().__init__(name, value)
-        self.price = 0
-        self.woodprice = 2000
-        self.stoneprice = 0
-
-class Sawmills(Base_stat):
+class Farms(Building):
 
     def __init__(self, name, value):
         super().__init__(name, value)
         self.price = 0
         self.woodprice = 2000
         self.stoneprice = 0
+        self.build_pollution = 2
 
-class Quarries(Base_stat):
+class Sawmills(Building):
+
+    def __init__(self, name, value):
+        super().__init__(name, value)
+        self.price = 0
+        self.woodprice = 2000
+        self.stoneprice = 0
+        self.build_pollution = 2
+
+class Quarries(Building):
 
     def __init__(self, name, value):
         super().__init__(name, value)
         self.price = 0
         self.woodprice = 0
         self.stoneprice = 2000
+        self.build_pollution = 2
 
-# End of AI use
+class Depollutinators(Building):
 
-# Stats for World
+    def __init__(self, name, value):
+        super().__init__(name, value)
+        self.price = 1000
+        self.woodprice = 1000
+        self.stoneprice = 1000
+        self.build_pollution = -5
+
 class Available_Land(Base_stat):
 
     def __init__(self, name, value):
         super().__init__(name, value)
 
+# Stats for World
 class Pollution(Base_stat):
 
     def __init__(self, name, value):

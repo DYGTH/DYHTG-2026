@@ -54,6 +54,23 @@ def generate_generic_decisions(civ: Civilisation, world: World):
 
 def generate_special_decisions(civ: Civilisation, world: World, turn: int):
 
-    # enum to prevent duplicates
+    decisions = []
 
-    pass
+    # enum to prevent duplicates
+    
+    # Turn wild land available
+    
+    identifier = Identifiers.TAMELAND
+    
+    context    = (identifier, world.wild_land)
+
+    decision   = Decision(
+        title       = f"Tame/Free wild land?",
+        description = f"Decide if you'd like to tame wild lands and make them available to be built on or free claimed land.",
+        type        = "scales",
+        context     = context
+        )
+
+    decisions.append(decision)
+
+    return decisions
