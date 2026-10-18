@@ -82,20 +82,32 @@ def process_choice(civ: Civilisation, world: World, choice: Choice):
         
         case decisions_generator.Identifiers.BUYSELL:
 
+            if choice_made > 0 and civ.money.value < context[1].price * choice_made:
+                return
+            if choice_made < 0 and context[1].value < -choice_made:
+                return
+
             context[1].add(choice_made)
             civ.money.add(-(context[1].price * choice_made))
 
         case decisions_generator.Identifiers.BUILDEMOLISH:
 
             if choice_made >= 0:
+                if (civ.money.value < context[1].price * choice_made
+                        or civ.wood.value < context[1].woodprice * choice_made
+                        or civ.stone.value < context[1].stoneprice * choice_made
+                        or civ.available_land.value < choice_made):
+                    return
+
                 context[1].add(choice_made)
                 civ.money.add(-(context[1].price * choice_made))
                 civ.wood.add(-(context[1].woodprice * choice_made))
                 civ.stone.add(-(context[1].stoneprice * choice_made))
                 civ.available_land.add(-choice_made)
             else:
-                context[1].add(-choice_made)
-                civ.available_land.add(choice_made)
+                removed = min(-choice_made, context[1].value)
+                context[1].add(-removed)
+                civ.available_land.add(removed)
 
         case decisions_generator.Identifiers.TAMELAND:
 

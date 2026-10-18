@@ -66,9 +66,9 @@ class Population(BaseStat):
         super().__init__(name, value, civ)
         self.available = self.value
 
-        # Multiplies Population with 1 + 1/5 of the percentage surplus of Food over Population
-        self.contribution_type = "mul"
-        self.contribution_factor = 1 + 0.2 * (civ.food.value - self.value) / self.value
+    def contribute(self):
+        if self.value > 0:
+            self.value *= 1 + 0.2 * (self.civ.food.value - self.value) / self.value
 
 # Following class declarations at base level made by AI in format of above class
 
@@ -77,43 +77,42 @@ class Money(BaseStat):
     def __init__(self, name, value, civ):
         super().__init__(name, value, civ)
 
-        self.contribution_type = "add"
-        self.contribution_factor = civ.factories.value * 1000
+    def contribute(self):
+        self.value += self.civ.factories.value * 1000
 
 class Food(BaseStat):
 
     def __init__(self, name, value, civ):
         super().__init__(name, value, civ)
 
-        self.contribution_type = "add"
-        self.contribution_factor = civ.farms.value * 1000
+    def contribute(self):
+        self.value += self.civ.farms.value * 1000
 
 class Wood(BaseStat):
 
     def __init__(self, name, value, civ):
         super().__init__(name, value, civ)
 
-        self.contribution_type = "add"
-        self.contribution_factor = civ.sawmills.value * 1000
+    def contribute(self):
+        self.value += self.civ.sawmills.value * 1000
 
 class Stone(BaseStat):
 
     def __init__(self, name, value, civ):
         super().__init__(name, value, civ)
 
-        self.contribution_type = "add"
-        self.contribution_factor = civ.quarries.value * 1000
+    def contribute(self):
+        self.value += self.civ.quarries.value * 1000
 
 class Happiness(BaseStat):
 
     def __init__(self, name, value, civ):
         super().__init__(name, value, civ)
 
-        # Adds 5 if positive food surplus, takes 5 if food deficit
-        self.contribution_type = "add"
-        food_surplus = civ.food.value - civ.population.value
+    def contribute(self):
+        food_surplus = self.civ.food.value - self.civ.population.value
         if food_surplus != 0:
-            self.contribution_factor = 5 * (food_surplus) / abs(food_surplus)
+            self.add(5 * food_surplus / abs(food_surplus))
 
 # End of AI use
 
@@ -148,9 +147,6 @@ class Farms(Building):
         self.stoneprice = 0
         self.build_pollution = 2
 
-        self.contribution_type   = "add"
-        self.contribution_factor = 1000
-
 class Sawmills(Building):
 
     def __init__(self, name, value, civ):
@@ -159,9 +155,6 @@ class Sawmills(Building):
         self.woodprice = 2000
         self.stoneprice = 0
         self.build_pollution = 2
-
-        self.contribution_type   = "add"
-        self.contribution_factor = 1000
 
 class Quarries(Building):
 
@@ -172,9 +165,6 @@ class Quarries(Building):
         self.woodprice = 0
         self.stoneprice = 2000
         self.build_pollution = 2
-
-        self.contribution_type   = "add"
-        self.contribution_factor = 1000
 
 class Depollutinators(Building):
 
