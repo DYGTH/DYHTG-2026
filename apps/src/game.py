@@ -1,11 +1,12 @@
 from apps.src.shared_types import Civilisation, World, Choice, Decision
+from save_and_load         import save_game
 
 import decisions_generator
 import exposure
 
 import random
 
-def game_loop():
+def start_game():
 
     # player civilization
     civ:   Civilisation = Civilisation()
@@ -17,46 +18,53 @@ def game_loop():
 
     exposure.pass_civ_world_to_frontend(civ, world)
 
+    game_loop(civ, world, turn)
+
+def game_loop(civ, world, turn):
+
     while (civ.isAlive()):
 
-        turn += 1
-
-        exposure.pass_turn_to_frontend(turn)
-
-        # decisions to choose from; limited amount possible
-        decisions: list         = decisions_generator.generate_generic_decisions(civ, world)
-        special_decisions: list = decisions_generator.generate_special_decisions(civ, world, turn)
-
-        # move count will be kept track of by frontend
-        moves = civ.get_move_count()
-
-        while (decisions):
-
-            decision = decisions.pop(-1)
-
-            exposure.pass_decision_to_frontend(decision)
-
-            choice = exposure.get_choice_from_frontend()
-
-            # choices made will have immediate consequences as well as ongoing effects
-            process_choice(civ, world, choice)
-
-            exposure.pass_civ_world_to_frontend(civ, world)
-
-        # Random Special Event (RSP)
-        if random.random() < 0.25:
-            decision = random.choice(special_decisions)
-            exposure.pass_decision_to_frontend(decision)
-            
-            choice = exposure.get_choice_from_frontend()
-
-            # choices made will have immediate consequences as well as ongoing effects
-            process_choice(civ, world, choice)
-
-            exposure.pass_civ_world_to_frontend(civ, world)
-
-        # modifiers and bonuses and stuff like that; maybe generate random events?
-        resolve_turn(civ, world)
+            if turn >= 1:
+                save_game(civ, world, turn)
+    
+            turn += 1
+    
+            exposure.pass_turn_to_frontend(turn)
+    
+            # decisions to choose from; limited amount possible
+            decisions: list         = decisions_generator.generate_generic_decisions(civ, world)
+            special_decisions: list = decisions_generator.generate_special_decisions(civ, world, turn)
+    
+            # move count will be kept track of by frontend
+            moves = civ.get_move_count()
+    
+            while (decisions):
+    
+                decision = decisions.pop(-1)
+    
+                exposure.pass_decision_to_frontend(decision)
+    
+                choice = exposure.get_choice_from_frontend()
+    
+                # choices made will have immediate consequences as well as ongoing effects
+                process_choice(civ, world, choice)
+    
+                exposure.pass_civ_world_to_frontend(civ, world)
+    
+            # Random Special Event (RSP)
+            if random.random() < 0.25:
+                decision = random.choice(special_decisions)
+                exposure.pass_decision_to_frontend(decision)
+                
+                choice = exposure.get_choice_from_frontend()
+    
+                # choices made will have immediate consequences as well as ongoing effects
+                process_choice(civ, world, choice)
+    
+                exposure.pass_civ_world_to_frontend(civ, world)
+    
+            # modifiers and bonuses and stuff like that; maybe generate random events?
+            resolve_turn(civ, world)
 
 
 def resolve_turn(civ: Civilisation, world: World):
