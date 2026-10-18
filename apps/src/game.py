@@ -3,6 +3,8 @@ from shared_types import Civilisation, World, Choice, Decision
 import decisions_generator
 import exposure
 
+from numpy.random import choice,randint
+
 def game_loop():
 
     # player civilization
@@ -34,6 +36,18 @@ def game_loop():
 
             exposure.pass_civ_world_to_frontend(civ, world)
 
+        # Random Special Event (RSP)
+        rse_p = [0,special_decisions[randint(0,len(special_decisions)-1)]]
+        decision = choice(rse_p, 1, p=[0.75,0.25])
+        if decision != 0:
+            exposure.pass_decision_to_frontend(decision)
+            
+            choice = exposure.get_choice_from_frontend()
+
+            # choices made will have immediate consequences as well as ongoing effects
+            process_choice(civ, world, choice)
+
+            exposure.pass_civ_world_to_frontend(civ, world)
 
         # modifiers and bonuses and stuff like that; maybe generate random events?
         resolve_turn(civ, world)
