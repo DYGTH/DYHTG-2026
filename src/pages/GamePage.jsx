@@ -3,7 +3,7 @@ import { Assistant } from "../components/Assistant";
 // import { NoButton } from "../components/BinaryButtons";
 import { SpeechBubble } from "../components/SpeechBubble";
 import { Statistics } from "../components/Statistics";
-import { DisplayButtons, DisplayEvent } from "../components/Events";
+import { DisplayButtons, DisplayDecision } from "../components/Decisions";
 
 export default function GamePage() {
     return (
@@ -12,6 +12,7 @@ export default function GamePage() {
             <Statistics/>
              <SpeechBubble speech="Mr. President. We are in a demo. Should we ship to prod?" />
             <Assistant/>
+            <DisplayDecision/>
             <DisplayButtons/>
         </div>
     )
