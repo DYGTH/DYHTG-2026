@@ -1,5 +1,5 @@
-export function NoButton() {
-    return (<button style =  {{
+export function NoButton({ onClick }) {
+    return (<button onClick={onClick} style =  {{
         width: "500px",
         height: "100px ",
         background: "#DC143C ",
@@ -13,8 +13,8 @@ export function NoButton() {
         }}> No </button>)
 }
 
-export function YesButton() {
-    return (<button style =  {{
+export function YesButton({ onClick }) {
+    return (<button onClick={onClick} style =  {{
         width: "500px",
         height: "100px",
         background: "#5EDC1F",
@@ -36,18 +36,10 @@ export function DownArrowButton() {
     return (<button></button>)
 }
 
-export function LeftArrowButton() {
-    return (<button className="width: 0
-	height: 0
-	border-top: 25px solid transparent
-	border-right: 50px solid #555
-	border-bottom: 25px solid transparent"></button>)
+export function LeftArrowButton({ onClick }) {
+    return (<button onClick={onClick}>&larr;</button>)
 }
 
-export function RightArrowButton() {
-    return (<button className="width: 0
-	height: 0
-	border-top: 25px solid transparent
-	border-left: 50px solid #555
-	border-bottom: 25px solid transparent"></button>)
+export function RightArrowButton({ onClick }) {
+    return (<button onClick={onClick}>&rarr;</button>)
 }

@@ -5,8 +5,6 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-FROM busybox:1.30 AS runner
-WORKDIR /app
-COPY --from=builder /app/dist .
-RUN printf '.js:text/javascript\n.mjs:text/javascript\n.json:application/json\n.svg:image/svg+xml\n.png:image/png\n.jpg:image/jpeg\n' > /etc/httpd.conf
-CMD ["busybox", "httpd", "-f", "-v", "-p", "5174", "-c", "/etc/httpd.conf"]
+FROM nginx:alpine AS runner
+COPY --from=builder /app/dist /usr/share/nginx/html
+RUN printf 'server {\n  listen 5174;\n  root /usr/share/nginx/html;\n  location / { try_files $uri /index.html; }\n}\n' > /etc/nginx/conf.d/default.conf
