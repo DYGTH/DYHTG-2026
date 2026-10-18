@@ -1,9 +1,16 @@
 import { YesButton } from "../components/BinaryButtons"
 import { NoButton } from "../components/BinaryButtons"
+import { useNavigate } from "react-router-dom" ;
 
 
 
 export default function MainMenu() {
+    const nav = useNavigate()
+
+    const navigate = () => {
+        nav("/GamePage")
+
+    }
     return (
         
         <div style = {{
@@ -27,7 +34,7 @@ export default function MainMenu() {
 
             }}>
 
-            <YesButton/>
+            <YesButton onClick = {navigate}/>
             <NoButton/>
             </div>
         </div>

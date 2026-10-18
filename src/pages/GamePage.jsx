@@ -1,5 +1,5 @@
 import { LeftArrowButton, YesButton } from "../components/BinaryButtons";
-import { NoButton } from "../components/BinaryButtons";
+import { RightArrowButton, NoButton } from "../components/BinaryButtons";
 import { SpeechBubble } from "../components/SpeechBubble";
 import { Statistics } from "../components/Statistics";
 
@@ -12,6 +12,7 @@ export default function GamePage() {
             <YesButton/>
             <NoButton/>
             <LeftArrowButton/>
+            <RightArrowButton/> 
         </div>
     )
 
