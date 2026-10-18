@@ -46,8 +46,10 @@ class BaseStat:
     """ BASED ON ATTRIBUTES (COUNT ETC.) """
     def contribute(self):
 
-        contribution = self.contribution_factor * self.value
-        self.contribution_type.add(contribution)
+        if self.contribution_type == "add":
+            self.value += self.contribution_factor
+        if self.contribution_type == "mul":
+            self.value *= self.contribution_factor
 
     def buffadd(self,value,turns):
         self.addDict[self.count] = [value,turns]
@@ -162,7 +164,7 @@ class Quarries(Building):
 
     def __init__(self, name, value, civ):
         super().__init__(name, value, civ)
-        
+
         self.price = 0
         self.woodprice = 0
         self.stoneprice = 2000

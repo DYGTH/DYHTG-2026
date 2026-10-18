@@ -49,9 +49,8 @@ def game_loop():
 
 def resolve_turn(civ: Civilisation, world: World):
 
-    civ  .update()
-    civ  .pollute()
-    world.update()
+    civ.update()
+    civ.pollute()
 
 def process_choice(civ: Civilisation, world: World, choice: Choice):
     
