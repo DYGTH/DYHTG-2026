@@ -46,7 +46,7 @@ class Civilisation():
 
         move_count = int(move_count)
 
-        return max(move_count, 1)
+        return min(max(move_count, 1), 6)
 
     def isAlive(self):
         return self.population.value>0
