@@ -81,4 +81,19 @@ def process_choice(civ: Civilisation, world: World, choice: Choice):
 
         case decisions_generator.Identifiers.SPECIAL:
 
-            special()
+            match context[1]:
+                case "add":
+                    context[2].buffadd(context[3],context[4])
+
+                case "mul":
+                    context[2].buffmul(context[3],context[4])
+
+            if choice_made <= 0:
+                context[2].add(choice_made)
+                civ.money.add(-(context[2].price * choice_made))
+            else:
+                context[5].add(choice_made)
+                civ.money.add(-(context[5].price * choice_made))
+                civ.wood.add(-(context[5].woodprice * choice_made))
+                civ.stone.add(-(context[5].stoneprice * choice_made))
+                civ.available_land.add(-choice_made)

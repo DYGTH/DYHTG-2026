@@ -7,6 +7,8 @@ class Identifiers(Enum):
 
     BUYSELL      = auto()
     BUILDEMOLISH = auto()
+    TAMELAND = auto()
+    SPECIAL = auto()
 
 def generate_generic_decisions(civ: Civilisation, world: World):
 
@@ -45,18 +47,6 @@ def generate_generic_decisions(civ: Civilisation, world: World):
             )
 
         decisions.append(decision)
-
-    for res in world.resources:
-
-        pass
-
-    return decisions
-
-def generate_special_decisions(civ: Civilisation, world: World, turn: int):
-
-    decisions = []
-
-    # enum to prevent duplicates
     
     # Turn wild land available
     
@@ -72,5 +62,68 @@ def generate_special_decisions(civ: Civilisation, world: World, turn: int):
         )
 
     decisions.append(decision)
+
+    return decisions
+
+def generate_special_decisions(civ: Civilisation, world: World, turn: int):
+
+    decisions = []
+
+    # enum to prevent duplicates
+
+    for turns in range(5):
+    
+        identifier = Identifiers.SPECIAL
+
+        # Drought Special Decision
+
+        type = 'mul'
+
+        scale = 0.8
+        
+        context    = (identifier,type,civ.food,scale,turns,civ.farms)
+
+        decision   = Decision(
+            title       = f"Drought! (0.8x multiplier on food for {turns} turns)",
+            description = f"Will you buy food or build Farms",
+            type        = "scales",
+            context     = context
+            )
+
+        decisions.append(decision)
+
+        # Wood Fungus Special Decision
+
+        type = 'mul'
+        
+        scale = 0.8
+        
+        context    = (identifier,type,civ.wood,scale,turns,civ.sawmills)
+
+        decision   = Decision(
+            title       = f"A wood fungus is eating the trees (0.8x multiplier on food for {turns} turns)",
+            description = f"Will you buy wood or build Saw Mills",
+            type        = "scales",
+            context     = context
+            )
+
+        decisions.append(decision)
+
+        # Mineshaft Collapse Special Decision
+        
+        type = 'mul'
+        
+        scale = 0.8
+        
+        context    = (identifier,type,civ.stone,scale,turns,civ.quarries)
+
+        decision   = Decision(
+            title       = f"A huge mineshaft collapsed and will take multiple days to rebuild (0.8x multiplier on food for {turns} turns)",
+            description = f"Will you buy stone or build Quarries",
+            type        = "scales",
+            context     = context
+            )
+
+        decisions.append(decision)
 
     return decisions
