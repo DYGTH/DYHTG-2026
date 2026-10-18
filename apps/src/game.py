@@ -46,8 +46,6 @@ def resolve_turn(civ: Civilisation, world: World):
     civ  .pollute()
     world.update()
 
-    #TODO
-
 def process_choice(civ: Civilisation, world: World, choice: Choice):
     
     decision    = choice.decision
