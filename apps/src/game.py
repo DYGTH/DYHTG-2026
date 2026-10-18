@@ -21,11 +21,9 @@ def game_loop():
         decisions: list         = decisions_generator.generate_generic_decisions(civ, world)
         special_decisions: list = decisions_generator.generate_special_decisions(civ, world, turn)
 
-        new_decisions = []
+        while (decisions):
 
-        while (new_decisions):
-
-            decision = new_decisions.pop(-1)
+            decision = decisions.pop(-1)
 
             exposure.pass_decision_to_frontend(decision)
 

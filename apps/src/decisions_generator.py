@@ -47,21 +47,26 @@ def generate_generic_decisions(civ: Civilisation, world: World):
             )
 
         decisions.append(decision)
-    
-    # Turn wild land available
-    
-    identifier = Identifiers.TAMELAND
-    
-    context    = (identifier, world.wild_land)
 
-    decision   = Decision(
-        title       = f"Tame/Free wild land?",
-        description = f"Decide if you'd like to tame wild lands and make them available to be built on or free claimed land.",
-        type        = "scales",
-        context     = context
-        )
+    # missing for loop?:
+        # Turn wild land available
+        
+        identifier = Identifiers.TAMELAND
+        
+        context    = (identifier, world.wild_land)
 
-    decisions.append(decision)
+        decision   = Decision(
+            title       = f"Tame/Free wild land?",
+            description = f"Decide if you'd like to tame wild lands and make them available to be built on or free claimed land.",
+            type        = "scales",
+            context     = context
+            )
+
+        decisions.append(decision)
+
+    # mangle decisions list
+    
+    
 
     return decisions
 
