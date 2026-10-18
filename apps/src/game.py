@@ -23,6 +23,9 @@ def game_loop():
         decisions: list         = decisions_generator.generate_generic_decisions(civ, world)
         special_decisions: list = decisions_generator.generate_special_decisions(civ, world, turn)
 
+        # move count will be kept track of by frontend
+        moves = civ.get_move_count()
+
         while (decisions):
 
             decision = decisions.pop(-1)
