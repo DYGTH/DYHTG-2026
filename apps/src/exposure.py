@@ -1,8 +1,8 @@
-# COMMUNICATE WITH MIDDLEMAN
+""" COMMUNICATE WITH MIDDLEMAN """
 
 from shared_types import Choice, Decision, World, Civilisation
 
-DECISION_TYPES = ("scales", "binary")
+DECISION_TYPES = ("scalar", "binary")
 
 decision = None
 choice = None

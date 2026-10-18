@@ -34,9 +34,14 @@ class Base_stat:
             value[1] -= 1
             if value[1] == 0:
                 temp.add(key)
-                
+
         for i in temp:
             del self.mulDict[i]
+
+    """ BASED ON MODIFIERS """
+    def contribute(self):
+
+        pass
 
     def buffadd(self,value,turns):
         self.addDict[self.count] = [value,turns]
