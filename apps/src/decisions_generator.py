@@ -1,6 +1,7 @@
 from shared_types import Civilisation, Decision, World
 
-from enum import Enum, auto
+from enum   import Enum, auto
+from random import randint
 
 # Thanks to ChatGPT for enum syntax
 class Identifiers(Enum):
@@ -65,7 +66,11 @@ def generate_generic_decisions(civ: Civilisation, world: World):
         decisions.append(decision)
 
     # mangle decisions list
-    
+    for _ in range(len(decisions) * 2):
+
+        n, m = randint(0, 50) % len(decisions), randint(0, 50) % len(decisions)
+
+        decisions[n], decisions[m] = decisions[m], decisions[n]
     
 
     return decisions
