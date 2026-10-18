@@ -1,3 +1,4 @@
+import { Assistant } from "../components/Assistant";
 import { LeftArrowButton, YesButton } from "../components/BinaryButtons";
 import { RightArrowButton, NoButton } from "../components/BinaryButtons";
 import { SpeechBubble } from "../components/SpeechBubble";
@@ -24,34 +25,10 @@ export default function GamePage() {
 
             <h2>Statistics</h2>
             <Statistics/>
-            </div>
-
-
-            <div script = {{ 
-                display: "flex",
-                flexDirection: "column",
-                justifyContent:"center",
-                // textAlign:"center",
-                alignItems: "center",
-                position: 'absolute',
-                minHeight: "100vh",
-                gap: "20px",
-                width: "100%"}}> 
-
-            <SpeechBubble speech="Mr. President. We are in a demo. Should we ship to prod?" />
-            </div>
-
-
-
-            <div script= {{ 
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    gap: "20px"}}> 
+             <SpeechBubble speech="Mr. President. We are in a demo. Should we ship to prod?" />
+            <Assistant/>
             <YesButton/>
             <NoButton/>
-            </div>
-
         </div>
     )
 
