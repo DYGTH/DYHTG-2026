@@ -71,7 +71,7 @@ def generate_special_decisions(civ: Civilisation, world: World, turn: int):
 
     # enum to prevent duplicates
 
-    for turns in range(5):
+    for turns in range(1,6):
     
         identifier = Identifiers.SPECIAL
 
