@@ -66,8 +66,9 @@ class Population(BaseStat):
         super().__init__(name, value, civ)
         self.available = self.value
 
+        # Multiplies Population with 1 + 1/5 of the percentage surplus of Food over Population
         self.contribution_type = "mul"
-        self.contribution_factor = (civ.food.value - self.value) / self.value
+        self.contribution_factor = (1 + 0.2 * (civ.food.value - self.value)) / self.value
 
 # Following class declarations at base level made by AI in format of above class
 
@@ -108,9 +109,11 @@ class Happiness(BaseStat):
     def __init__(self, name, value, civ):
         super().__init__(name, value, civ)
 
+        # Adds 5 if positive food surplus, takes 5 if food deficit
         self.contribution_type = "add"
         food_surplus = civ.food.value - civ.population.value
-        self.contribution_factor = 5 * (food_surplus) / abs(food_surplus)
+        if food_surplus != 0:
+            self.contribution_factor = 5 * (food_surplus) / abs(food_surplus)
 
 # End of AI use
 

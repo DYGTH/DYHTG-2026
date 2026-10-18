@@ -19,7 +19,7 @@ class Civilisation():
         self.depollutinators = Depollutinators('depollutinators',0,self)
 
         self.available_land = Available_Land('available_land',10,self)
-        self.happiness = Happiness('happiness',100,self)
+        self.happiness = Happiness('happiness',50,self)
         #end of AI usage
 
         self.stats = [self.population,self.money,self.food,self.wood,self.stone,self.happiness,
@@ -42,7 +42,8 @@ class Civilisation():
 
         alpha, beta = 0, 0
 
-        move_count = self.happiness**alpha * self.population**beta
+        # Amount of moves the player can make: 3 + Happiness weight (0.5 - 1.5) * population / 5000
+        move_count = round(3 + (((self.happiness + 50) / 100) * (self.population / 5000)))
 
         move_count = int(move_count)
 
