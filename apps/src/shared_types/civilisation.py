@@ -10,6 +10,7 @@ class Civilisation():
         self.wood = Wood('wood',1000)
         self.stone = Stone('stone',1000)
         self.happiness = Happiness('happiness',100)
+
         self.factories = Factories('factories',1)
         self.farms = Farms('farms',1)
         self.sawmills = Sawmills('sawmills',1)
@@ -18,7 +19,9 @@ class Civilisation():
         self.available_land = Available_Land('available_land',10)
         #end of AI usage
 
-        self.stats = [self.population,self.money,self.food,self.happiness,self.factories,self.farms]
+        self.stats     = [self.population,self.money,self.food,self.wood,self.stone,self.happiness,
+                          self.factories,self.farms,self.sawmills,self.quarries,
+                          self.depollutinators,self.available_land]
         self.resources = [self.food,self.wood,self.stone]
         self.buildings = [self.factories,self.farms,self.sawmills,self.quarries]
 
