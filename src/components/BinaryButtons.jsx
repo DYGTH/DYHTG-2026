@@ -14,8 +14,8 @@ export function NoButton() {
         // onClick = { () => setClicked(true)}
         onClick = {handleClick}
         style =  {{
-        width: "300px",
-        height: "100px ",
+        width: "120px",
+        height: "70px ",
         background: clicked ? "#A51020" :"#DC143C ",
         borderRadius: "10px",
         fontSize: "30px",
@@ -41,8 +41,8 @@ export function YesButton({onClick}) {
     return (<button 
         onClick = {onClick} 
         style =  {{
-        width: "300px",
-        height: "100px",
+        width: "120px",
+        height: "70px",
         background: "#5EDC1F", 
         // clicked? "#3D9910" 
         borderRadius: "10px",

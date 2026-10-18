@@ -1,5 +1,15 @@
 export function SpeechBubble({ speech }){
     return (
-        <div><p>{speech}</p></div>
+        <div style= {{
+
+             backgroundColor: "lightgrey",
+             width: "250px",
+             border: "5px solid chocolate",
+             padding: "30px ",
+             margin: "20px" ,
+             marginRight: "190px",
+        }}> <p>{speech}</p>
+            
+         </div>
     )
 }

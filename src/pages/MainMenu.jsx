@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom" ;
 
 
 
+
 export default function MainMenu() {
     const nav = useNavigate()
 
@@ -14,6 +15,15 @@ export default function MainMenu() {
     return (
         
         <div style = {{
+            // background image
+            backgroundImage: "url(/src/pages/mainPage.jpg)" ,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+
+
+
+            // general styling position
             display: "flex",
             flexDirection: "column",
             justifyContent:"center",
@@ -23,9 +33,12 @@ export default function MainMenu() {
             minHeight: "100vh",
             gap: "20px",
             width: "100%"
+
             }}>
+            
 
             <h1> Start game? </h1>
+            
 
             <div style ={{
                 display:"flex",
