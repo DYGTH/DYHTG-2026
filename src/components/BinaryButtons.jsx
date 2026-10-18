@@ -118,7 +118,6 @@ export function LeftArrowButton({ onClick }) {
                 marginLeft: "20px",
             }}
         >
-            Yes 
         </button>
     );
 }
@@ -154,7 +153,6 @@ export function RightArrowButton({ onClick }) {
                 marginLeft: "20px",
             }}
         >
-            Yes 
         </button>
     );
 }

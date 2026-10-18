@@ -1,60 +1,56 @@
-import {
-    BrowserRouter as Router,
-    Routes,
-    Route,
-} from "react-router-dom";import './App.css'
-import MainMenu from './pages/MainMenu'
+import { useEffect, useRef } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
+import MainMenu from "./pages/MainMenu";
 import GamePage from "./pages/GamePage";
 import ErrorBoundary from "./components/ErrorBoundary";
-import React, { Component } from "react";
+import gameBg from "./assets/game_bg.png";
 
-class App extends Component {
-    render() {
-        const bg = {
-            backgroundImage: `url("src/assets/game_bg.png")`,
-            height: "100vh",
-            // marginTop: "-70px",
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
+function App() {
+    const audioRef = useRef(null);
+
+    useEffect(() => {
+        const audio = audioRef.current;
+        if (!audio) return;
+
+        const playAudio = () => {
+            if (audio.paused) {
+                audio.play().catch(() => {});
+            }
         };
-        return (
-            <ErrorBoundary>
-    <div style={bg}>
- <Router>
-      <Routes>
-          <Route path="/" element={<MainMenu />} />
-            <Route path="/GamePage" element={<GamePage />} />
-      </Routes>
-    </Router>
-    
-    <audio controls loop>
-    <source src="/Choice Game Music.wav" type="audio/wav" />
-</audio>
-    </div>
-   
-    </ErrorBoundary> 
-        );
-    }
+
+        const promise = audio.play();
+        if (promise !== undefined) {
+            promise.catch(() => {
+                window.addEventListener("pointerdown", playAudio, { once: true });
+                window.addEventListener("keydown", playAudio, { once: true });
+            });
+        }
+    }, []);
+
+    const bg = {
+        backgroundImage: `url(${gameBg})`,
+        minHeight: "100vh",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+    };
+
+    return (
+        <ErrorBoundary>
+            <div style={bg}>
+                <audio ref={audioRef} loop autoPlay style={{ display: "none" }}>
+                    <source src="/Choice Game Music.wav" type="audio/wav" />
+                </audio>
+                <Router>
+                    <Routes>
+                        <Route path="/" element={<MainMenu />} />
+                        <Route path="/GamePage" element={<GamePage />} />
+                    </Routes>
+                </Router>
+            </div>
+        </ErrorBoundary>
+    );
 }
 
 export default App;
-
-
-// function App() {
-
-//   return (
-//     <ErrorBoundary>
-    
-//     <Router>
-//       <Routes>
-//           <Route path="/" element={<MainMenu />} />
-//             <Route path="/GamePage" element={<GamePage />} />
-//       </Routes>
-//     </Router>
-    
-//     </ErrorBoundary> 
-  
-//   )
-// }
-
-// export default App;
