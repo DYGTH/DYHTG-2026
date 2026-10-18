@@ -1,56 +1,33 @@
-import { YesButton } from "../components/BinaryButtons"
-import { NoButton } from "../components/BinaryButtons"
-import { useNavigate } from "react-router-dom" ;
-
-
-
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { YesButton, NoButton } from "../components/BinaryButtons";
+import mainPageImg from "./mainPage.jpg";
 
 export default function MainMenu() {
-    const nav = useNavigate()
+    const nav = useNavigate();
+    const [declined, setDeclined] = useState(false);
 
-    const navigate = () => {
-        nav("/GamePage")
-
-    }
     return (
-        
-        <div style = {{
-            // background image
-            backgroundImage: "url(/src/pages/mainPage.jpg)" ,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
+        <div
+            className="page menu"
+            style={{
+                backgroundImage: `url(${mainPageImg})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center bottom",
+            }}
+        >
+            <h1 className="title">Mr. President</h1>
 
-
-
-            // general styling position
-            display: "flex",
-            flexDirection: "column",
-            justifyContent:"center",
-            // textAlign:"center",
-            alignItems: "center",
-            position: 'absolute',
-            minHeight: "100vh",
-            gap: "20px",
-            width: "100%"
-
-            }}>
-            
-
-            <h1> Start game? </h1>
-            
-
-            <div style ={{
-                display:"flex",
-                flexDirection: "row",
-                gap: "20px",
-
-            }}>
-
-            <YesButton onClick = {navigate}/>
-            <NoButton/>
+            <div className="panel">
+                <h2>Start game?</h2>
+                <p className="muted">
+                    {declined ? "The nation can wait. For now." : "The country needs a leader."}
+                </p>
+                <div className="actions">
+                    <YesButton onClick={() => nav("/GamePage")} />
+                    <NoButton onClick={() => setDeclined(true)} />
+                </div>
             </div>
         </div>
-    )
-
+    );
 }

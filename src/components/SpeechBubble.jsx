@@ -1,15 +1,9 @@
-export function SpeechBubble({ speech }){
+export function SpeechBubble({ badge, title, text }) {
     return (
-        <div style= {{
-
-             backgroundColor: "lightgrey",
-             width: "250px",
-             border: "5px solid chocolate",
-             padding: "30px ",
-             margin: "20px" ,
-            //  marginRight: "190px",
-        }}> <p>{speech}</p>
-            
-         </div>
-    )
+        <div className="panel bubble">
+            {badge && <span className="badge">{badge}</span>}
+            {title && <h3 className="bubble-title">{title}</h3>}
+            <p className="bubble-text">{text}</p>
+        </div>
+    );
 }

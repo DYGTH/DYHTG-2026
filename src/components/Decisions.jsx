@@ -1,24 +1,21 @@
 import { LeftArrowButton, RightArrowButton, NoButton, YesButton } from './BinaryButtons';
+import { SpeechBubble } from './SpeechBubble';
 
 export function DisplayDecision({ decision }) {
   if (!decision) {
-    return <p>Waiting for the next decision...</p>;
+    return <SpeechBubble text="Waiting for the next decision..." />;
   }
   return (
-    <section>
-        <h3>{ decision.type } </h3>
-        <p>{ decision.title }</p>
-        <p>{ decision.description }</p>
-    </section>
+    <SpeechBubble badge={decision.type} title={decision.title} text={decision.description} />
   );
 }
 
-export function DisplayButtons({ decision, onAnswer }) {
+export function DisplayButtons({ decision, onAnswer, disabled }) {
     if (!decision) {
       return null;
     }
     if (decision.type == "binary") {
-      return(<div><YesButton onClick={() => onAnswer(true)}/><NoButton onClick={() => onAnswer(false)}/></div>);
+      return(<div className="actions"><YesButton disabled={disabled} onClick={() => onAnswer(true)}/><NoButton disabled={disabled} onClick={() => onAnswer(false)}/></div>);
     }
-    return(<div><LeftArrowButton onClick={() => onAnswer(-1)}/><RightArrowButton onClick={() => onAnswer(1)}/></div>);
+    return(<div className="actions"><LeftArrowButton disabled={disabled} onClick={() => onAnswer(-1)}/><RightArrowButton disabled={disabled} onClick={() => onAnswer(1)}/></div>);
 }

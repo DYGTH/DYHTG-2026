@@ -6,153 +6,37 @@ import redButtonPressedImg from "../assets/red_button_pressed.png";
 import leftButtonImg from "../assets/left_arrow.png";
 import rightButtonImg from "../assets/right_arrow.png";
 
-
-export function NoButton({ onClick }) {
-    const [clicked, setClicked] = useState(false);
-
-    function handleClick() {
-        if (onClick) onClick();
-        setClicked(true);
-        setTimeout(() => {
-            setClicked(false);
-        }, 1000);
-    }
+function ImageButton({ image, pressedImage = image, label, text, round, onClick, disabled }) {
+    const [pressed, setPressed] = useState(false);
 
     return (
-        <button 
-            onClick={handleClick}
-            style={{
-                width: "120px",
-                height: "70px",
-                backgroundImage: `url(${clicked ? redButtonPressedImg : redButtonImg})`,
-                backgroundSize: "cover",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "center",
-                border: "none",
-                outline: "none",
-                backgroundColor: "transparent",
-                WebkitTapHighlightColor: "transparent",
-                borderRadius: "10px",
-                fontSize: "30px",
-                alignSelf: "center",
-                marginLeft: "20px",
-            }}
+        <button
+            className={round ? "image-button image-button-round" : "image-button"}
+            aria-label={label}
+            disabled={disabled}
+            onClick={onClick}
+            onPointerDown={() => setPressed(true)}
+            onPointerUp={() => setPressed(false)}
+            onPointerLeave={() => setPressed(false)}
+            style={{ backgroundImage: `url(${pressed ? pressedImage : image})` }}
         >
-            No
+            <span className="image-button-label">{text}</span>
         </button>
     );
 }
 
-export function YesButton({ onClick }) {
-    const [clicked, setClicked] = useState(false);
-
-    function handleClick() {
-        if (onClick) onClick();
-        setClicked(true);
-        setTimeout(() => {
-            setClicked(false);
-        }, 1000);
-    }
-
-    return (
-        <button 
-            onClick={handleClick}
-            style={{
-                width: "120px",
-                height: "70px",
-                backgroundImage: `url(${clicked ? greenButtonPressedImg : greenButtonImg})`,
-                backgroundSize: "cover",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "center",
-                border: "none",
-                outline: "none",
-                backgroundColor: "transparent",
-                WebkitTapHighlightColor: "transparent",
-                borderRadius: "10px",
-                fontSize: "30px",
-                alignSelf: "center",
-                marginLeft: "20px",
-            }}
-        >
-            Yes 
-        </button>
-    );
+export function YesButton(props) {
+    return <ImageButton image={greenButtonImg} pressedImage={greenButtonPressedImg} label="Yes" text="Yes" round {...props} />;
 }
 
-export function UpArrowButton() {
-    return (<button></button>);
+export function NoButton(props) {
+    return <ImageButton image={redButtonImg} pressedImage={redButtonPressedImg} label="No" text="No" round {...props} />;
 }
 
-export function DownArrowButton() {
-    return (<button></button>);
+export function LeftArrowButton(props) {
+    return <ImageButton image={leftButtonImg} label="Decrease" {...props} />;
 }
 
-export function LeftArrowButton({ onClick }) {
-   const [clicked, setClicked] = useState(false);
-
-    function handleClick() {
-        if (onClick) onClick();
-        setClicked(true);
-        setTimeout(() => {
-            setClicked(false);
-        }, 1000);
-    }
-
-    return (
-        <button 
-            onClick={handleClick}
-            style={{
-                width: "120px",
-                height: "70px",
-                backgroundImage: `url(${clicked ? leftButtonImg : leftButtonImg})`,
-                backgroundSize: "cover",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "center",
-                border: "none",
-                outline: "none",
-                backgroundColor: "transparent",
-                WebkitTapHighlightColor: "transparent",
-                borderRadius: "10px",
-                fontSize: "30px",
-                alignSelf: "center",
-                marginLeft: "20px",
-            }}
-        >
-        </button>
-    );
-}
-
-export function RightArrowButton({ onClick }) {
-    const [clicked, setClicked] = useState(false);
-
-    function handleClick() {
-        if (onClick) onClick();
-        setClicked(true);
-        setTimeout(() => {
-            setClicked(false);
-        }, 1000);
-    }
-
-    return (
-        <button 
-            onClick={handleClick}
-            style={{
-                width: "120px",
-                height: "70px",
-                backgroundImage: `url(${clicked ? rightButtonImg : rightButtonImg})`,
-                backgroundSize: "cover",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "center",
-                border: "none",
-                outline: "none",
-                backgroundColor: "transparent",
-                WebkitTapHighlightColor: "transparent",
-                borderRadius: "10px",
-                fontSize: "30px",
-                alignSelf: "center",
-                marginLeft: "20px",
-            }}
-        >
-        </button>
-    );
+export function RightArrowButton(props) {
+    return <ImageButton image={rightButtonImg} label="Increase" {...props} />;
 }

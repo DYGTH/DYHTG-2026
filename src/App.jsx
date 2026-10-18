@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./App.css";
 import MainMenu from "./pages/MainMenu";
 import GamePage from "./pages/GamePage";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -28,17 +27,9 @@ function App() {
         }
     }, []);
 
-    const bg = {
-        backgroundImage: `url(${gameBg})`,
-        minHeight: "100vh",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-    };
-
     return (
         <ErrorBoundary>
-            <div style={bg}>
+            <div className="app" style={{ backgroundImage: `url(${gameBg})` }}>
                 <audio ref={audioRef} loop autoPlay style={{ display: "none" }}>
                     <source src="/Choice Game Music.wav" type="audio/wav" />
                 </audio>

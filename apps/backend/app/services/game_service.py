@@ -2,7 +2,7 @@ import sys
 import threading
 from pathlib import Path
 
-from app.schemas import ChoiceResult, Decision, Event, Turn
+from app.schemas import ChoiceResult, Decision, Turn
 
 root = Path(__file__).resolve().parents[4]
 src = root / "apps" / "src"
@@ -22,10 +22,6 @@ def get_stats() -> dict[str, float]:
 
 def get_turn() -> Turn:
     return Turn(turn=exposure.get_turn_for_frontend())
-
-
-def get_events() -> list[Event]:
-    return [Event(id="stub", title="Placeholder event", description="...")]
 
 
 def get_decision() -> Decision | None:

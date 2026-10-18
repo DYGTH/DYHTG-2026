@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Assistant } from "../components/Assistant";
-import { SpeechBubble } from "../components/SpeechBubble";
 import { Statistics } from "../components/Statistics";
 import { DisplayButtons, DisplayDecision } from "../components/Decisions";
 
@@ -10,6 +10,7 @@ export default function GamePage() {
     const [statistics, setStatistics] = useState(null);
     const [decision, setDecision] = useState(null);
     const [alive, setAlive] = useState(true);
+    const [busy, setBusy] = useState(false);
 
     const loadDecision = () =>
         fetch(`${API}/decision`)
@@ -25,8 +26,9 @@ export default function GamePage() {
         loadDecision();
     }, []);
 
-    const answer = value =>
-        fetch(`${API}/decision`, {
+    const answer = value => {
+        setBusy(true);
+        return fetch(`${API}/decision`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ choise_answer: value }),
@@ -37,57 +39,29 @@ export default function GamePage() {
                 setAlive(data.alive);
                 return loadDecision();
             })
-            .catch(err => console.error("Failed to send choice:", err));
+            .catch(err => console.error("Failed to send choice:", err))
+            .finally(() => setBusy(false));
+    };
 
     return (
-
-
-        <div style = {{
-            minHeight: "100vh",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            position: "relative",
-            padding: "20px",
-            boxSizing: "border-box",
-        }}>
-
-
-            <div style = {{   
-            textAlign: " center",         
-            }}>
-
-            <h2>Statistics</h2>
-            <Statistics statistics={statistics}/>
-            </div>
-
-
-            <div script = {{ 
-                display: "flex",
-                flexDirection: "column",
-                justifyContent:"center",
-                // textAlign:"center",
-                alignItems: "center",
-                position: 'absolute',
-                minHeight: "100vh",
-                gap: "20px",
-                width: "100%"}}> 
-
-            <SpeechBubble speech="Mr. President. We are in a demo. Should we ship to prod?" />
-            </div>
-
-
+        <div className="page game">
+            <Statistics statistics={statistics} />
 
             {alive ? (
-                <div>
-                    <DisplayDecision decision={decision}/>
-                    <DisplayButtons decision={decision} onAnswer={answer}/>
-                </div>
+                <>
+                    <div className="scene">
+                        <Assistant />
+                        <DisplayDecision decision={decision} />
+                    </div>
+                    <DisplayButtons decision={decision} onAnswer={answer} disabled={busy} />
+                </>
             ) : (
-                <h2>Game over</h2>
+                <div className="panel game-over">
+                    <h2>Game over</h2>
+                    <p>Your term has come to an end.</p>
+                    <Link to="/" className="link-button">Back to menu</Link>
+                </div>
             )}
-
         </div>
-    )
-
+    );
 }

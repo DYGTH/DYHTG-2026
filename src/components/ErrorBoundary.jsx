@@ -14,7 +14,7 @@ class ErrorBoundary extends React.Component {
     render() {
         if (this.state.errorInfo) {
             return (
-                <div>
+                <div className="panel error">
                     <h2>An Error Has Occurred</h2>
                     <details>
                         {this.state.error && this.state.error.toString()}
