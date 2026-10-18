@@ -24,6 +24,7 @@ class Base_stat:
             value[1] -= 1
             if value[1] == 0:
                 temp.add(key)
+
         for i in temp:
             del self.addDict[i]
 
@@ -33,6 +34,7 @@ class Base_stat:
             value[1] -= 1
             if value[1] == 0:
                 temp.add(key)
+                
         for i in temp:
             del self.mulDict[i]
 
