@@ -40,6 +40,10 @@ class Civilisation():
 
     def get_move_count(self):
 
+        alpha, beta = 0, 0
+
+        move_count = self.happiness**alpha * self.population**beta
+
         move_count = int(move_count)
 
         return max(move_count, 1)
