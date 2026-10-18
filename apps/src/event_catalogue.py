@@ -7,6 +7,19 @@ EVENTS = [
         "down": {"money": -800, "happiness": 4},
     },
     {
+        "title": "🕰️ Overtime Shifts",
+        "text": "The factories could run all night. The workers would rather you didn't.",
+        "type": "scales",
+        "up": {"money": 1200, "buffs": [("happiness", "add", -3, 4)]},
+        "down": {"money": -800, "buffs": [("happiness", "add", 2, 4)]},
+    },
+    {
+        "title": "🏦 Foreign Loan",
+        "text": "A foreign bank offers cash today. The repayments start tomorrow, politely.",
+        "type": "scales",
+        "up": {"money": 1000, "buffs": [("money", "add", -220, 6)]},
+    },
+    {
         "title": "🛂 Immigration Office",
         "text": "Boats of hopeful migrants are waiting in the harbour.",
         "type": "scales",

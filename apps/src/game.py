@@ -105,7 +105,8 @@ def process_choice(civ: Civilisation, world: World, choice: Choice):
     if side not in context:
         return
 
-    notches = effects.affordable_notches(civ, world, context[side], notches)
+    if decision.type == "scales" or side == "yes":
+        notches = effects.affordable_notches(civ, world, context[side], notches)
 
     if notches > 0:
         effects.apply_effects(civ, world, context[side], notches)
