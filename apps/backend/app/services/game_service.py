@@ -4,8 +4,9 @@ from pathlib import Path
 
 from app.schemas import ChoiceResult, Decision, Event, Turn
 
-src = Path(__file__).resolve().parents[3] / "src"
-sys.path[:0] = [str(src), str(src / "shared_types")]
+root = Path(__file__).resolve().parents[4]
+src = root / "apps" / "src"
+sys.path[:0] = [str(root), str(src), str(src / "shared_types")]
 
 import exposure  # noqa: E402
 import game  # noqa: E402

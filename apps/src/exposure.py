@@ -5,7 +5,7 @@ import time
 
 from apps.src.shared_types import Choice, Decision, World, Civilisation
 
-DECISION_TYPES = ("scalar", "binary")
+DECISION_TYPES = ("scales", "binary")
 
 decision = None
 choice = None
