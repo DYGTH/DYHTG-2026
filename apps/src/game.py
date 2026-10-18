@@ -18,13 +18,18 @@ def game_loop():
         turn += 1
 
         # decisions to choose from; limited amount possible
-        decisions: list = decisions_generator.generate_generic_decisions(civ, world)
-        decisions.extend( decisions_generator.generate_special_decisions(civ, world, turn))
+        decisions: list         = decisions_generator.generate_generic_decisions(civ, world)
+        special_decisions: list = decisions_generator.generate_special_decisions(civ, world, turn)
 
+        # use special decisions list to check if player ignored any special_decisions
+        int specials_start = len(decisions)
+        int pops           = 0
+
+        decisions.extend(special_decisions)
 
         while (decisions):
 
-            decision = decisions.pop(-1)
+            decision = decisions.pop(0)
 
             exposure.pass_decision_to_frontend(decision)
 
@@ -34,6 +39,8 @@ def game_loop():
             process_choice(civ, world, choice)
 
             exposure.pass_civ_world_to_frontend(civ, world)
+
+            pops += 1
 
 
         # modifiers and bonuses and stuff like that; maybe generate random events?
@@ -45,8 +52,6 @@ def resolve_turn(civ: Civilisation, world: World):
     civ  .update()
     civ  .pollute()
     world.update()
-
-    #TODO
 
 def process_choice(civ: Civilisation, world: World, choice: Choice):
     
