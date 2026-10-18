@@ -39,8 +39,6 @@ class Civilisation():
 
     def get_move_count(self):
 
-        alpha, beta = 0, 0
-
         # Amount of moves the player can make: 3 + Happiness weight (0.5 - 1.5) * population / 5000
         move_count = round(3 + (((self.happiness.value + 50) / 100) * (self.population.value / 5000)))
 
@@ -52,4 +50,4 @@ class Civilisation():
         return self.population.value>0
 
     def get_stat(self):
-        return {i.name:i.value for i in self.stats}
+        return {i.name:int(i.value) for i in self.stats}
