@@ -1,4 +1,4 @@
-from base_stat import *
+from apps.src.shared_types.base_stat import *
 
 class World():
 

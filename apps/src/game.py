@@ -1,4 +1,4 @@
-from shared_types import Civilisation, World, Choice, Decision
+from apps.src.shared_types import Civilisation, World, Choice, Decision
 
 import decisions_generator
 import exposure

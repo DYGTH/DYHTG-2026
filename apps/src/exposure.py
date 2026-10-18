@@ -3,7 +3,7 @@
 import math
 import time
 
-from shared_types import Choice, Decision, World, Civilisation
+from apps.src.shared_types import Choice, Decision, World, Civilisation
 
 DECISION_TYPES = ("scalar", "binary")
 

@@ -1,4 +1,4 @@
-from decision import Decision
+from apps.src.shared_types.decision import Decision
 
 class Choice():
 

@@ -1,4 +1,4 @@
-from civilisation import Civilisation
+from apps.src.shared_types.civilisation import Civilisation
 
 """ Stat template """
 

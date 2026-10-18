@@ -1,4 +1,4 @@
-from shared_types import Civilisation, Decision, World
+from apps.src.shared_types import Civilisation, Decision, World
 
 from enum   import Enum, auto
 from random import randint
