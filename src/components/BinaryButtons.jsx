@@ -3,6 +3,9 @@ import greenButtonImg from "../assets/green_button.png";
 import greenButtonPressedImg from "../assets/green_button_pressed.png";
 import redButtonImg from "../assets/red_button.png";
 import redButtonPressedImg from "../assets/red_button_pressed.png";
+import leftButtonImg from "../assets/left_arrow.png";
+import rightButtonImg from "../assets/right_arrow.png";
+
 
 export function NoButton({ onClick }) {
     const [clicked, setClicked] = useState(false);
@@ -85,7 +88,7 @@ export function DownArrowButton() {
 }
 
 export function LeftArrowButton({ onClick }) {
-    const [clicked, setClicked] = useState(false);
+   const [clicked, setClicked] = useState(false);
 
     function handleClick() {
         if (onClick) onClick();
@@ -99,16 +102,23 @@ export function LeftArrowButton({ onClick }) {
         <button 
             onClick={handleClick}
             style={{
-                width: "300px",
-                height: "100px",
-                background: clicked ? "#3D9910" : "#5EDC1F",
+                width: "120px",
+                height: "70px",
+                backgroundImage: `url(${clicked ? leftButtonImg : leftButtonImg})`,
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+                border: "none",
+                outline: "none",
+                backgroundColor: "transparent",
+                WebkitTapHighlightColor: "transparent",
                 borderRadius: "10px",
                 fontSize: "30px",
                 alignSelf: "center",
-                marginRight: "20px",
+                marginLeft: "20px",
             }}
-        > 
-            &larr; 
+        >
+            Yes 
         </button>
     );
 }
@@ -128,16 +138,23 @@ export function RightArrowButton({ onClick }) {
         <button 
             onClick={handleClick}
             style={{
-                width: "300px",
-                height: "100px",
-                background: clicked ? "#A51020" : "#DC143C",
+                width: "120px",
+                height: "70px",
+                backgroundImage: `url(${clicked ? rightButtonImg : rightButtonImg})`,
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+                border: "none",
+                outline: "none",
+                backgroundColor: "transparent",
+                WebkitTapHighlightColor: "transparent",
                 borderRadius: "10px",
                 fontSize: "30px",
                 alignSelf: "center",
                 marginLeft: "20px",
             }}
-        > 
-            &rarr; 
+        >
+            Yes 
         </button>
     );
 }

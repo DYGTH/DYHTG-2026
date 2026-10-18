@@ -27,6 +27,9 @@ class App extends Component {
       </Routes>
     </Router>
     
+    <audio controls loop>
+    <source src="/Choice Game Music.wav" type="audio/wav" />
+</audio>
     </div>
    
     </ErrorBoundary> 
