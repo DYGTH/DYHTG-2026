@@ -1,6 +1,6 @@
 """ Stat template """
 
-class Base_stat:
+class BaseStat:
 
     def __init__(self,name,value):
             self.name = name
@@ -38,10 +38,11 @@ class Base_stat:
         for i in temp:
             del self.mulDict[i]
 
-    """ BASED ON MODIFIERS """
+    """ BASED ON ATTRIBUTES (COUNT ETC.) """
     def contribute(self):
 
-        pass
+        contribution = self.contribution_factor * self.value
+        self.contribution_type.add(contribution)
 
     def buffadd(self,value,turns):
         self.addDict[self.count] = [value,turns]
@@ -52,34 +53,34 @@ class Base_stat:
         self.count+=1
 
 # Stats for Civilisation
-class Population(Base_stat):
+class Population(BaseStat):
 
     def __init__(self, name, value):
         super().__init__(name, value)
 
 # Following class declarations in made by AI in format of above class
 
-class Money(Base_stat):
+class Money(BaseStat):
 
     def __init__(self, name, value):
         super().__init__(name, value)
 
-class Food(Base_stat):
+class Food(BaseStat):
 
     def __init__(self, name, value):
         super().__init__(name, value)
 
-class Wood(Base_stat):
+class Wood(BaseStat):
 
     def __init__(self, name, value):
         super().__init__(name, value)
 
-class Stone(Base_stat):
+class Stone(BaseStat):
 
     def __init__(self, name, value):
         super().__init__(name, value)
 
-class Happiness(Base_stat):
+class Happiness(BaseStat):
 
     def __init__(self, name, value):
         super().__init__(name, value)
@@ -90,7 +91,7 @@ class Happiness(Base_stat):
 BUILDINGS
 """
 
-class Building(Base_stat):
+class Building(BaseStat):
 
     def __init__(self, name, value):
         super().__init__(name, value)
@@ -99,63 +100,84 @@ class Building(Base_stat):
     def pollute(self,civ):
         civ.pollution.add(self.build_pollution)
 
+    """ BASED ON ATTRIBUTES """
+    def contribute(self):
+        
+        contribution = self.contribution_factor * self.value
+        self.contribution_type.add(contribution)
+
 class Factories(Building):
 
-    def __init__(self, name, value):
+    def __init__(self, name, value, contribution_type: BaseStat, contribution_factor):
         super().__init__(name, value)
         self.price = 1000
         self.woodprice = 1000
         self.stoneprice = 1000
         self.build_pollution = 5
 
+        self.contribution_type   = contribution_type
+        self.contribution_factor = contribution_factor
+
 class Farms(Building):
 
-    def __init__(self, name, value):
+    def __init__(self, name, value, contribution_type: BaseStat, contribution_factor):
         super().__init__(name, value)
         self.price = 0
         self.woodprice = 2000
         self.stoneprice = 0
         self.build_pollution = 2
+
+        self.contribution_type   = contribution_type
+        self.contribution_factor = contribution_factor
 
 class Sawmills(Building):
 
-    def __init__(self, name, value):
+    def __init__(self, name, value, contribution_type, contribution_factor):
         super().__init__(name, value)
         self.price = 0
         self.woodprice = 2000
         self.stoneprice = 0
         self.build_pollution = 2
 
+        self.contribution_type   = contribution_type
+        self.contribution_factor = contribution_factor
+
 class Quarries(Building):
 
-    def __init__(self, name, value):
+    def __init__(self, name, value, contribution_type, contribution_factor):
         super().__init__(name, value)
         self.price = 0
         self.woodprice = 0
         self.stoneprice = 2000
         self.build_pollution = 2
 
+        self.contribution_type   = contribution_type
+        self.contribution_factor = contribution_factor
+
 class Depollutinators(Building):
 
-    def __init__(self, name, value):
+    def __init__(self, name, value, contribution_type, contribution_factor):
         super().__init__(name, value)
         self.price = 1000
         self.woodprice = 1000
         self.stoneprice = 1000
         self.build_pollution = -5
 
-class Available_Land(Base_stat):
+        self.contribution_type   = contribution_type
+        self.contribution_factor = contribution_factor
+
+class Available_Land(BaseStat):
 
     def __init__(self, name, value):
         super().__init__(name, value)
 
 # Stats for World
-class Pollution(Base_stat):
+class Pollution(BaseStat):
 
     def __init__(self, name, value):
         super().__init__(name, value)
 
-class Wild_Land(Base_stat):
+class Wild_Land(BaseStat):
 
     def __init__(self, name, value):
         super().__init__(name, value)
