@@ -2,7 +2,7 @@ import sys
 import threading
 from pathlib import Path
 
-from app.schemas import ChoiceResult, Decision, Event
+from app.schemas import ChoiceResult, Decision, Event, Turn
 
 src = Path(__file__).resolve().parents[3] / "src"
 sys.path[:0] = [str(src), str(src / "shared_types")]
@@ -17,6 +17,10 @@ def start_game():
 
 def get_stats() -> dict[str, float]:
     return exposure.get_stats_for_frontend()
+
+
+def get_turn() -> Turn:
+    return Turn(turn=exposure.get_turn_for_frontend())
 
 
 def get_events() -> list[Event]:

@@ -12,6 +12,7 @@ choice = None
 stats = {}
 alive = True
 updates = 0
+turn = 0
 
 def pass_decision_to_frontend(new_decision: Decision):
     global decision
@@ -69,3 +70,10 @@ def get_stats_for_frontend():
 
 def get_alive_for_frontend():
     return alive
+
+def pass_turn_to_frontend(new_turn: int):
+    global turn
+    turn = new_turn
+
+def get_turn_for_frontend():
+    return turn
