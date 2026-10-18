@@ -12,14 +12,17 @@ function App() {
 
   return (
     <ErrorBoundary>
+    
     <Router>
       <Routes>
-          <Route exact path="/" element={<MainMenu />} />
-          <Route path="/game" element={<GamePage />} />
+          <Route path="/" element={<MainMenu />} />
+            <Route path="/GamePage" element={<GamePage />} />
       </Routes>
     </Router>
-    </ErrorBoundary>
+    
+    </ErrorBoundary> 
+  
   )
 }
 
-export default App
+export default App;

@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Assistant } from "../components/Assistant";
+import { LeftArrowButton, YesButton } from "../components/BinaryButtons";
+import { RightArrowButton, NoButton } from "../components/BinaryButtons";
 import { SpeechBubble } from "../components/SpeechBubble";
 import { Statistics } from "../components/Statistics";
 import { DisplayButtons, DisplayDecision } from "../components/Decisions";
@@ -40,7 +42,23 @@ export default function GamePage() {
             .catch(err => console.error("Failed to send choice:", err));
 
     return (
-        <div>
+
+
+        <div style = {{
+            minHeight: "100vh",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            position: "relative",
+            padding: "20px",
+            boxSizing: "border-box",
+        }}>
+
+
+            <div style = {{   
+            textAlign: " center",         
+            }}>
+
             <h2>Statistics</h2>
             <Statistics statistics={statistics}/>
             <SpeechBubble speech="Mr. President. We are in a demo. Should we ship to prod?" />
