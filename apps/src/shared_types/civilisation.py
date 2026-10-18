@@ -26,6 +26,8 @@ class Civilisation():
         for stat in self.stats:
             stat.update()
 
+            stat.contribute()
+
     def pollute(self):
         for building in self.buildings:
             building.pollute(self)

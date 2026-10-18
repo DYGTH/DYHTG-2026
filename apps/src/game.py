@@ -78,3 +78,7 @@ def process_choice(civ: Civilisation, world: World, choice: Choice):
             context[1].add(-choice_made)
             civ.available_land.add(choice_made)
             world.pollution.add(choice_made)
+
+        case decisions_generator.Identifiers.SPECIAL:
+
+            special()

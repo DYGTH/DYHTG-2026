@@ -1,4 +1,5 @@
-# Stat template
+""" Stat template """
+
 class Base_stat:
 
     def __init__(self,name,value):
@@ -15,6 +16,7 @@ class Base_stat:
     def mul(self,multiplier):
         self.value *= multiplier
 
+    """ BASED ON MODIFIERS """
     def update(self):
         temp = set()
         for key,value in self.addDict.items():
@@ -76,6 +78,10 @@ class Happiness(Base_stat):
         super().__init__(name, value)
 
 # End of AI use
+
+"""
+BUILDINGS
+"""
 
 class Building(Base_stat):
 
