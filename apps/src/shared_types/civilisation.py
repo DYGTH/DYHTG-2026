@@ -38,6 +38,12 @@ class Civilisation():
         for building in self.buildings:
             building.pollute(self)
 
+    def get_move_count(self):
+
+        move_count = int(move_count)
+
+        return max(move_count, 1)
+
     def isAlive(self):
         return self.population.value>0
 

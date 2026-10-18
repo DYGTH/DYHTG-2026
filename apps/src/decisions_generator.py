@@ -72,7 +72,7 @@ def generate_generic_decisions(civ: Civilisation, world: World):
 
         decisions[n], decisions[m] = decisions[m], decisions[n]
     
-    return decisions[:len(decisions)//2]
+    return decisions[:7]
 
 def generate_special_decisions(civ: Civilisation, world: World, turn: int):
 
