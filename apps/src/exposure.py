@@ -29,10 +29,6 @@ def receive_choice_from_frontend(data: dict):
     if decision is None:
         raise LookupError("No pending decision")
 
-    title = data.get("title")
-    if title is not None and title != decision.title:
-        raise ValueError("answer is for a different decision")
-
     choise_answer = data.get("choise_answer")
     if decision.type == "binary":
         if not isinstance(choise_answer, bool):
@@ -51,7 +47,7 @@ def receive_choice_from_frontend(data: dict):
     decision = None
 
     for _ in range(50):
-        if updates > seen:
+        if updates > seen and (decision is not None or not alive):
             break
         time.sleep(0.1)
 
