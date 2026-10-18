@@ -9,6 +9,8 @@ class World():
 
     def update(self):
         for stat in self.stats:
+            stat.contribute()
+
             stat.update()
 
     def get_stat(self):

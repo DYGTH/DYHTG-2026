@@ -1,3 +1,5 @@
+import { ICONS, formatLabel, formatValue } from "../statMeta";
+
 const DEFAULT_STATS = {
   population: 1000,
   money: 1000,
@@ -9,26 +11,7 @@ const DEFAULT_STATS = {
   wild_land: 100,
 };
 
-const ICONS = {
-  population: "👥",
-  money: "💰",
-  food: "🌾",
-  happiness: "😊",
-  factories: "🏭",
-  farms: "🚜",
-  pollution: "☁️",
-  wild_land: "🌲",
-};
-
 const LOW_IS_BAD = ["money", "food", "happiness", "wild_land"];
-
-function formatLabel(key) {
-  return key.replace(/_/g, " ");
-}
-
-function formatValue(value) {
-  return Number.isInteger(value) ? value.toLocaleString() : value.toFixed(1);
-}
 
 export function Statistics({ statistics }) {
   const shown = statistics && Object.keys(statistics).length > 0 ? statistics : DEFAULT_STATS;

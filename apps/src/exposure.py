@@ -13,6 +13,7 @@ stats = {}
 alive = True
 updates = 0
 turn = 0
+turn_summary = None
 
 def pass_decision_to_frontend(new_decision: Decision):
     global decision
@@ -70,6 +71,24 @@ def get_stats_for_frontend():
 
 def get_alive_for_frontend():
     return alive
+
+def pass_turn_summary_to_frontend(turn_number: int, start: dict, after_choices: dict, end: dict):
+    global turn_summary
+    turn_summary = {
+        "turn": turn_number,
+        "stats": {
+            name: {
+                "choices": after_choices[name] - start[name],
+                "production": end[name] - after_choices[name],
+                "total": end[name] - start[name],
+                "end": end[name],
+            }
+            for name in end
+        },
+    }
+
+def get_turn_summary_for_frontend():
+    return turn_summary
 
 def pass_turn_to_frontend(new_turn: int):
     global turn

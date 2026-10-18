@@ -2,6 +2,7 @@ from apps.src.shared_types import Civilisation, World, Choice, Decision
 from save_and_load         import save_game
 
 import decisions_generator
+import effects
 import exposure
 
 import random
@@ -31,12 +32,14 @@ def game_loop(civ, world, turn):
     
             exposure.pass_turn_to_frontend(turn)
     
-            # decisions to choose from; limited amount possible
-            decisions: list         = decisions_generator.generate_generic_decisions(civ, world)
-            special_decisions: list = decisions_generator.generate_special_decisions(civ, world, turn)
-    
             # move count will be kept track of by frontend
             moves = civ.get_move_count()
+
+            # decisions to choose from; limited amount possible
+            decisions: list         = decisions_generator.generate_generic_decisions(civ, world, turn, moves)
+            special_decisions: list = decisions_generator.generate_special_decisions(civ, world, turn)
+
+            start_stats = snapshot(civ, world)
     
             while (decisions):
     
@@ -52,7 +55,7 @@ def game_loop(civ, world, turn):
                 exposure.pass_civ_world_to_frontend(civ, world)
     
             # Random Special Event (RSP)
-            if random.random() < 0.25:
+            if random.random() < decisions_generator.crisis_chance(turn):
                 decision = random.choice(special_decisions)
                 exposure.pass_decision_to_frontend(decision)
                 
@@ -63,14 +66,26 @@ def game_loop(civ, world, turn):
     
                 exposure.pass_civ_world_to_frontend(civ, world)
     
+            choice_stats = snapshot(civ, world)
+
             # modifiers and bonuses and stuff like that; maybe generate random events?
             resolve_turn(civ, world)
 
+            exposure.pass_turn_summary_to_frontend(turn, start_stats, choice_stats, snapshot(civ, world))
+
+            exposure.pass_civ_world_to_frontend(civ, world)
+
+
+def snapshot(civ: Civilisation, world: World):
+
+    return {**civ.get_stat(), **world.get_stat()}
 
 def resolve_turn(civ: Civilisation, world: World):
 
     civ.update()
     civ.pollute(world)
+    world.update()
+    civ.suffer_pollution(world)
 
 def process_choice(civ: Civilisation, world: World, choice: Choice):
     
@@ -78,58 +93,19 @@ def process_choice(civ: Civilisation, world: World, choice: Choice):
     choice_made = choice.choice_made
     context     = decision.context
 
-    match context[0]:
-        
-        case decisions_generator.Identifiers.BUYSELL:
+    effects.apply_effects(civ, world, context.get("always", {}), 1)
 
-            if choice_made > 0 and civ.money.value < context[1].price * choice_made:
-                return
-            if choice_made < 0 and context[1].value < -choice_made:
-                return
+    if decision.type == "binary":
+        side    = "yes" if choice_made else "no"
+        notches = 1
+    else:
+        side    = "up" if choice_made > 0 else "down"
+        notches = int(abs(choice_made))
 
-            context[1].add(choice_made)
-            civ.money.add(-(context[1].price * choice_made))
+    if side not in context:
+        return
 
-        case decisions_generator.Identifiers.BUILDEMOLISH:
+    notches = effects.affordable_notches(civ, world, context[side], notches)
 
-            if choice_made >= 0:
-                if (civ.money.value < context[1].price * choice_made
-                        or civ.wood.value < context[1].woodprice * choice_made
-                        or civ.stone.value < context[1].stoneprice * choice_made
-                        or civ.available_land.value < choice_made):
-                    return
-
-                context[1].add(choice_made)
-                civ.money.add(-(context[1].price * choice_made))
-                civ.wood.add(-(context[1].woodprice * choice_made))
-                civ.stone.add(-(context[1].stoneprice * choice_made))
-                civ.available_land.add(-choice_made)
-            else:
-                removed = min(-choice_made, context[1].value)
-                context[1].add(-removed)
-                civ.available_land.add(removed)
-
-        case decisions_generator.Identifiers.TAMELAND:
-
-            context[1].add(-choice_made)
-            civ.available_land.add(choice_made)
-            world.pollution.add(choice_made)
-
-        case decisions_generator.Identifiers.SPECIAL:
-
-            match context[1]:
-                case "add":
-                    context[2].buffadd(context[3],context[4])
-
-                case "mul":
-                    context[2].buffmul(context[3],context[4])
-
-            if choice_made <= 0:
-                context[2].add(choice_made)
-                civ.money.add(-(context[2].price * choice_made))
-            else:
-                context[5].add(choice_made)
-                civ.money.add(-(context[5].price * choice_made))
-                civ.wood.add(-(context[5].woodprice * choice_made))
-                civ.stone.add(-(context[5].stoneprice * choice_made))
-                civ.available_land.add(-choice_made)
+    if notches > 0:
+        effects.apply_effects(civ, world, context[side], notches)

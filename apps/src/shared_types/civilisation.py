@@ -3,6 +3,8 @@ from apps.src.shared_types.base_stat import *
 class Civilisation():
 
     def __init__(self):
+        self.hungry = 0
+
         #Buildings
         self.factories = Factories('factories',1,self)
         self.farms = Farms('farms',1,self)
@@ -25,17 +27,25 @@ class Civilisation():
                           self.factories,self.farms,self.sawmills,self.quarries,
                           self.depollutinators,self.available_land]
         self.resources = [self.food,self.wood,self.stone]
-        self.buildings = [self.factories,self.farms,self.sawmills,self.quarries]
+        self.buildings = [self.factories,self.farms,self.sawmills,self.quarries,self.depollutinators]
 
     def update(self):
         for stat in self.stats:
-            stat.update()
-
             stat.contribute()
+
+            stat.update()
 
     def pollute(self, world):
         for building in self.buildings:
             building.pollute(world)
+
+    def upkeep(self):
+        return sum(building.value for building in self.buildings) * 150 + self.population.value * 0.1
+
+    def suffer_pollution(self, world):
+        excess = max(0, world.pollution.value - 40)
+        self.happiness.add(-excess / 10)
+        self.population.add(-self.population.value * excess / 1000)
 
     def get_move_count(self):
 

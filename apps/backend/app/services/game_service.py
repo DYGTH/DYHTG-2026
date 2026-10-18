@@ -30,5 +30,9 @@ def get_decision() -> Decision | None:
 
 
 def submit_choice(data: dict) -> ChoiceResult:
+    turn = exposure.get_turn_for_frontend()
     exposure.receive_choice_from_frontend(data)
-    return ChoiceResult(alive=exposure.get_alive_for_frontend(), stats=get_stats())
+    summary = exposure.get_turn_summary_for_frontend()
+    if summary is not None and summary["turn"] != turn:
+        summary = None
+    return ChoiceResult(alive=exposure.get_alive_for_frontend(), stats=get_stats(), summary=summary)

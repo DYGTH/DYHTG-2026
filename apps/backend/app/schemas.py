@@ -12,9 +12,22 @@ class Decision(BaseModel):
     description: str
 
 
+class StatChange(BaseModel):
+    choices: float
+    production: float
+    total: float
+    end: float
+
+
+class TurnSummary(BaseModel):
+    turn: int
+    stats: dict[str, StatChange]
+
+
 class ChoiceResult(BaseModel):
     alive: bool
     stats: dict[str, float]
+    summary: TurnSummary | None = None
 
 class Turn(BaseModel):
     turn: int
