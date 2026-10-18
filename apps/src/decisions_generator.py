@@ -49,6 +49,7 @@ def generate_generic_decisions(civ: Civilisation, world: World):
 
         decisions.append(decision)
 
+    # TODO
     # missing for loop?:
         # Turn wild land available
         
