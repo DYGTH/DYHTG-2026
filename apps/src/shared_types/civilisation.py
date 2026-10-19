@@ -1,0 +1,63 @@
+from apps.src.shared_types.base_stat import *
+
+class Civilisation():
+
+    def __init__(self):
+        self.hungry = 0
+
+        #Buildings
+        self.factories = Factories('factories',1,self)
+        self.farms = Farms('farms',1,self)
+        self.sawmills = Sawmills('sawmills',1,self)
+        self.quarries = Quarries('quarries',1,self)
+        self.depollutinators = Depollutinators('depollutinators',0,self)
+
+        #Resources
+        self.money = Money('money',1000,self)
+        self.food = Food('food',1000,self)
+        self.wood = Wood('wood',1000,self)
+        self.stone = Stone('stone',1000,self)
+
+        self.population = Population('population',1000,self)
+        self.available_land = Available_Land('available_land',10,self)
+        self.happiness = Happiness('happiness',50,self)
+        #end of AI usage
+
+        self.stats = [self.population,self.money,self.food,self.wood,self.stone,self.happiness,
+                          self.factories,self.farms,self.sawmills,self.quarries,
+                          self.depollutinators,self.available_land]
+        self.resources = [self.food,self.wood,self.stone]
+        self.buildings = [self.factories,self.farms,self.sawmills,self.quarries,self.depollutinators]
+
+    def update(self):
+        for stat in self.stats:
+            stat.contribute()
+
+            stat.update()
+
+    def pollute(self, world):
+        for building in self.buildings:
+            building.pollute(world)
+
+    def upkeep(self):
+        return sum(building.value for building in self.buildings) * 150 + self.population.value * 0.1
+
+    def suffer_pollution(self, world):
+        excess = max(0, world.pollution.value - 40)
+        self.happiness.add(-excess / 10)
+        self.population.add(-self.population.value * excess / 1000)
+
+    def get_move_count(self):
+
+        # Amount of moves the player can make: 3 + Happiness weight (0.5 - 1.5) * population / 5000
+        move_count = round(3 + (((self.happiness.value + 50) / 100) * (self.population.value / 5000)))
+
+        move_count = int(move_count)
+
+        return min(max(move_count, 1), 6)
+
+    def isAlive(self):
+        return self.population.value>=1
+
+    def get_stat(self):
+        return {i.name:int(i.value) for i in self.stats}
