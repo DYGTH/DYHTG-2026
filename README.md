@@ -13,7 +13,7 @@ Backend (from the repo root):
 ```bash
 pip install -r requirements.txt
 cd apps/backend
-uvicorn app.main:app --port 8000
+uvicorn app.main:app --port 8001
 ```
 
 Frontend (from the repo root, in a second terminal):
@@ -31,9 +31,9 @@ Or run both with Docker:
 docker compose up --build
 ```
 
-This serves the API on port 8000 and the built frontend on http://localhost:5174.
+This serves the API on port 8001 and the built frontend on http://localhost:5174.
 
-The frontend calls the API at `http://localhost:8000` (hardcoded in [src/pages/GamePage.jsx](src/pages/GamePage.jsx)), and the backend only allows CORS from ports 5173 and 5174.
+The frontend calls the API at `http://localhost:8001` (hardcoded in [src/pages/GamePage.jsx](src/pages/GamePage.jsx)), and the backend only allows CORS from ports 5173 and 5174.
 
 ## How to play
 
@@ -85,7 +85,7 @@ The POST body is `{"choise_answer": true}` for a binary decision (`true` is Yes)
 }
 ```
 
-Interactive docs are at http://localhost:8000/docs while the backend is running.
+Interactive docs are at http://localhost:8001/docs while the backend is running.
 
 ## Project layout
 

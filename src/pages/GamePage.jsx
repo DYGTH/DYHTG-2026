@@ -5,7 +5,7 @@ import { Statistics } from "../components/Statistics";
 import { DisplayButtons, DisplayDecision } from "../components/Decisions";
 import { TurnSummary } from "../components/TurnSummary";
 
-const API = "http://localhost:8000";
+const API = "http://localhost:8001";
 const CONFIRM_MS = 3000;
 
 export default function GamePage() {
